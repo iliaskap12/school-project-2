@@ -1,5 +1,5 @@
 const path = require('path');
-const root = require(path.join('..', __dirname, 'util', 'path'));
+const root = require(path.join('..', 'util', 'path'));
 
 const mongodb = require('mongodb');
 const getDb = require(path.join(root, 'util', 'database')).getDb;

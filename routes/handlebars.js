@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const path = require('path');
-const root = require(path.join('..', __dirname, 'util', 'path'));
+const root = require(path.join('..', 'util', 'path'));
 const handlebarsController = require(path.join(
   root,
   'controllers',
