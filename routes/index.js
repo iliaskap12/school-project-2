@@ -7,7 +7,7 @@ const indexController = require(path.join(root, 'controllers', 'index'));
 const errorController = require(path.join(root, 'controllers', 'error'));
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   // index
 });
 

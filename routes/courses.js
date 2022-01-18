@@ -7,8 +7,8 @@ const coursesController = require(path.join(root, 'controllers', 'courses'));
 const errorController = require(path.join(root, 'controllers', 'error'));
 
 /* GET home page. */
-router.get('/courses', function(req, res, next) {
-    // courses.html
+router.get('/courses', function (req, res, next) {
+  // courses.html
 });
 
 module.exports = router;

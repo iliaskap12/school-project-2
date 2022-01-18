@@ -7,15 +7,12 @@ const userController = require(path.join(root, 'controllers', 'user'));
 const errorController = require(path.join(root, 'controllers', 'error'));
 
 /* GET users listing. */
-router.post('/register', function(req, res, next) {
-
+router.post('/register', function (req, res, next) {
   // validation
-
   // pass -> create user
   //      -> store user
   //      -> login user
   //      -> redirect thank you 401 + user
-
   // fail -> onerror
   //      -> 422 + validation info
 });
@@ -25,7 +22,6 @@ router.post('/login', (req, res, next) => {
   //      -> generate token
   //      -> store token
   //      -> send token
-
   // fail -> username or password incorrect 422
 });
 
@@ -34,7 +30,6 @@ router.get('/profile', (req, res, next) => {
   //        -> get token
   //        -> validate id + token
   //        -> send profile
-
   // fail   -> onerror
   //        -> unauthorized 501
 });
