@@ -10,7 +10,6 @@ const handlebarsControllers = require(path.join(
 ));
 const errorController = require(path.join(root, 'controllers', 'error'));
 
-/* GET users listing. */
 router.get('/hbs/header', (req, res, next) => {});
 
 router.get('/hbs/search', handlebarsControllers.searchResults);

@@ -1,21 +1,21 @@
 const path = require('path');
 const root = require(path.join('..', 'util', 'path'));
-const views = require(path.join(root, 'views'));
+const views = path.join(root, 'views');
 
-function searchResults(req, res, next) {
-    res.sendFile(path.join(views, 'search.hbs'));
+function searchResults (req, res, next) {
+  res.sendFile(path.join(views, 'search.hbs'));
 }
 
-function header(req, res, next) {
-    res.sendFile(path.join(views, 'header.hbs'));
+function header (req, res, next) {
+  res.sendFile(path.join(views, 'header.hbs'));
 }
 
-function footer(req, res, next) {
-    res.sendFile(path.join(views, 'footer.hbs'));
+function footer (req, res, next) {
+  res.sendFile(path.join(views, 'footer.hbs'));
 }
 
-function thanks(req, res, next) {
-    res.sendFile(path.join(views, 'thanks.hbs'));
+function thanks (req, res, next) {
+  res.sendFile(path.join(views, 'thanks.hbs'));
 }
 
 exports.thanks = thanks;

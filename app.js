@@ -11,9 +11,11 @@ const errorController = require('./controllers/error');
 // const mongoConnect = require('./util/database').mongoConnect;
 const User = require('./models/User');
 
+const handlebarsRouter = require(path.join(__dirname, 'routes', 'handlebars'));
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/user');
 
+app.use(handlebarsRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
