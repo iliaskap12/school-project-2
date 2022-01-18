@@ -1,5 +1,5 @@
 window.addEventListener('load', () => {
-  async function asyncCall (keyword) {
+  async function asyncCallCourse (keyword) {
     let myHeaders = new Headers();
     let init = {
       method: 'GET',
@@ -21,7 +21,9 @@ window.addEventListener('load', () => {
         'Please enter a name or keyword for us to search!'
       );
     } else {
-      let response = asyncCall(keyword.value);
+      let responseCourses = asyncCallCourse(keyword.value);
+      let responseCategories = asyncCallCategories();
+      
     }
   });
 });
