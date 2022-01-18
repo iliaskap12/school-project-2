@@ -15,7 +15,7 @@ window.addEventListener('load', () => {
 
   document.getElementById('form').addEventListener('submit', e => {
     e.preventDefault();
-    let keyword = document.getElementById('txt_search');
+    let keyword = document.getElementById('txt-search');
     if (keyword.value.length === 0) {
       keyword.setCustomValidity(
         'Please enter a name or keyword for us to search!'
