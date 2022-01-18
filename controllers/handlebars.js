@@ -18,7 +18,27 @@ function thanks (req, res, next) {
   res.sendFile(path.join(views, 'thanks.hbs'));
 }
 
+function courses (req, res, next) {
+  res.sendFile(path.join(views, 'courses.hbs'));
+}
+
+function profile (req, res, next) {
+  res.sendFile(path.join(views, 'profile.hbs'));
+}
+
+function register (req, res, next) {
+  res.sendFile(path.join(views, 'register.hbs'));
+}
+
+function error (req, res, next) {
+  res.sendFile(path.join(views, 'error.hbs'));
+}
+
+exports.profile = profile;
+exports.courses = courses;
 exports.thanks = thanks;
 exports.footer = footer;
+exports.register = register;
+exports.error = error;
 exports.header = header;
 exports.searchResults = searchResults;
