@@ -10,20 +10,20 @@ const handlebarsControllers = require(path.join(
 ));
 const errorController = require(path.join(root, 'controllers', 'error'));
 
-router.get('/hbs/header', (req, res, next) => {});
+router.get('/header', (req, res, next) => {});
 
-router.get('/hbs/search', handlebarsControllers.searchResults);
+router.get('/search', handlebarsControllers.searchResults);
 
-router.get('/hbs/search-results', (req, res, next) => {});
+router.get('/search-results', (req, res, next) => {});
 
-router.get('/hbs/courses', function (req, res, next) {});
+router.get('/courses', function (req, res, next) {});
 
-router.get('/hbs/thanks', (req, res, next) => {});
+router.get('/thanks', (req, res, next) => {});
 
-router.get('/hbs/register', (req, res, next) => {});
+router.get('/register', (req, res, next) => {});
 
-router.get('/hbs/login', (req, res, next) => {});
+router.get('/login', (req, res, next) => {});
 
-router.get('/hbs/profile:id', (req, res, next) => {});
+router.get('/profile:id', (req, res, next) => {});
 
 module.exports = router;
