@@ -10,6 +10,7 @@ window.addEventListener('load', () => {
       init
     );
     result = await result.json();
+    console.log(result);
     return result;
   }
 
@@ -48,22 +49,26 @@ window.addEventListener('load', () => {
     const parser = new DOMParser();
     const template = Handlebars.compile(result);
     let i = 0;
-    for (const data in listOfData) {
-      const content = {
+    let content = new Array(listOfData.length)
+    for (const data of listOfData) {
+      content[i] = {
         title: data.title,
-        category: listOfTitles[i].title,
+        category: listOfTitles[i],
         objectives: data.objectives,
         description: data.description
       };
-      document.body.appendChild(
-        parser.parseFromString(template(content), 'text/html').body
+      i++
+    }
+    content = { content: content /* <-- array */ };
+    console.log(JSON.stringify(content));
+    let results = document.getElementsByClassName("results")[0].
+      appendChild(
+        parser.parseFromString(template({content: content.content}), 'text/html').body
           .firstElementChild
       );
-      i++;
-    }
   }
 
-  document.getElementById('form').addEventListener('submit', e => {
+  document.getElementById('form').addEventListener('submit', async e => {
     e.preventDefault();
     let keyword = document.getElementById('txt-search');
     if (keyword.value.length === 0) {
@@ -71,8 +76,8 @@ window.addEventListener('load', () => {
         'Please enter a name or keyword for us to search!'
       );
     } else {
-      let responseCourses = asyncCallCourse(keyword.value);
-      let responseCategories = asyncCallCategories();
+      let responseCourses = await asyncCallCourse(keyword.value);
+      let responseCategories = await asyncCallCategories();
       let categoryTitles = findCategoryTitle(
         responseCourses,
         responseCategories
