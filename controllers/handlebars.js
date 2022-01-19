@@ -6,7 +6,7 @@ function searchResults (req, res, next) {
   res.sendFile(path.join(views, 'search.hbs'));
 }
 
-function header (req, res, next) {
+function headerSection (req, res, next) {
   res.sendFile(path.join(views, 'header.hbs'));
 }
 
@@ -18,27 +18,39 @@ function thanks (req, res, next) {
   res.sendFile(path.join(views, 'thanks.hbs'));
 }
 
-function courses (req, res, next) {
+function coursesHbs (req, res, next) {
   res.sendFile(path.join(views, 'courses.hbs'));
 }
 
-function profile (req, res, next) {
+function userProfile (req, res, next) {
   res.sendFile(path.join(views, 'profile.hbs'));
 }
 
-function register (req, res, next) {
+function registerUser (req, res, next) {
   res.sendFile(path.join(views, 'register.hbs'));
 }
 
-function error (req, res, next) {
+function login (req, res, next) {
+  res.sendFile(path.join(views, 'login.hbs'));
+}
+
+function errorHbs (req, res, next) {
   res.sendFile(path.join(views, 'error.hbs'));
 }
 
-exports.profile = profile;
-exports.courses = courses;
-exports.thanks = thanks;
-exports.footer = footer;
-exports.register = register;
-exports.error = error;
-exports.header = header;
-exports.searchResults = searchResults;
+function menu (req, res, next) {
+  res.sendFile(path.join(views, 'menu.hbs'));
+}
+
+module.exports = {
+  userProfile,
+  coursesHbs,
+  thanks,
+  menu,
+  footer,
+  registerUser,
+  login,
+  errorHbs,
+  headerSection,
+  searchResults
+};

@@ -1,29 +1,31 @@
+// Node module
+const path = require('path');
+
+// External dependencies
 const express = require('express');
+
+// Express functions
 const router = express.Router();
 
-const path = require('path');
-const root = require(path.join('..', 'util', 'path'));
+// Custom utilities
+const root = path.join('..', 'util', 'path');
+
+// Controllers
 const handlebarsControllers = require(path.join(
-  root,
+  '..',
   'controllers',
   'handlebars'
 ));
-const errorController = require(path.join(root, 'controllers', 'error'));
 
-router.get('/header', (req, res, next) => {});
-
+router.get('/header', handlebarsControllers.headerSection);
+router.get('/footer', handlebarsControllers.footer);
+router.get('/error', handlebarsControllers.errorHbs);
 router.get('/search', handlebarsControllers.searchResults);
-
-router.get('/search-results', (req, res, next) => {});
-
-router.get('/courses', function (req, res, next) {});
-
-router.get('/thanks', (req, res, next) => {});
-
-router.get('/register', (req, res, next) => {});
-
-router.get('/login', (req, res, next) => {});
-
-router.get('/profile:id', (req, res, next) => {});
+router.get('/menu', handlebarsControllers.menu);
+router.get('/courses', handlebarsControllers.coursesHbs);
+router.get('/thanks', handlebarsControllers.thanks);
+router.get('/register', handlebarsControllers.registerUser);
+router.get('/login', handlebarsControllers.login);
+router.get('/profile:id', handlebarsControllers.userProfile);
 
 module.exports = router;
