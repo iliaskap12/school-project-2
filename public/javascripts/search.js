@@ -1,5 +1,4 @@
 window.addEventListener('load', () => {
-  
   async function asyncCallCourse (keyword) {
     let myHeaders = new Headers();
     let init = {
@@ -28,14 +27,14 @@ window.addEventListener('load', () => {
     return result;
   }
 
-  function findCategoryTitle(listOfData, listOfCategories){
+  function findCategoryTitle (listOfData, listOfCategories) {
     let listOfTitles = new Array(listOfData.length);
     let i = 0;
-    for(const data of listOfData){
-      for(const category of listOfCategories){
-        if(data.categoty == category.id){
+    for (const data of listOfData) {
+      for (const category of listOfCategories) {
+        if (data.category === category.id) {
           listOfTitles[i] = category.title;
-          i++
+          i++;
           break;
         }
       }
@@ -43,27 +42,23 @@ window.addEventListener('load', () => {
     return listOfTitles;
   }
 
-  async function asyncCallHandlebars(listOfData, listOfTitles){
+  async function asyncCallHandlebars (listOfData, listOfTitles) {
     let result = await fetch('/hbs/search');
-    let result = await result.text();
+    result = await result.text();
     const parser = new DOMParser();
     const template = Handlebars.compile(result);
     let i = 0;
-    for(const data in listOfData){
-      content = {
+    for (const data in listOfData) {
+      const content = {
         title: data.title,
         category: listOfTitles[i].title,
         objectives: data.objectives,
-        description: data.description 
-      }
-      document
-        .body
-        .appendChild(
-          parser.parseFromString(
-            template(content),
-            'text/html'
-          ).body.firstElementChild
-        );
+        description: data.description
+      };
+      document.body.appendChild(
+        parser.parseFromString(template(content), 'text/html').body
+          .firstElementChild
+      );
       i++;
     }
   }
@@ -78,7 +73,10 @@ window.addEventListener('load', () => {
     } else {
       let responseCourses = asyncCallCourse(keyword.value);
       let responseCategories = asyncCallCategories();
-      let categoryTitles = findCategoryTitle(responseCourses, responseCategories);
+      let categoryTitles = findCategoryTitle(
+        responseCourses,
+        responseCategories
+      );
       let handlebars = asyncCallHandlebars(responseCourses, categoryTitles);
     }
   });

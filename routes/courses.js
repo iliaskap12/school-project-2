@@ -9,7 +9,7 @@ const router = express.Router();
 
 // Custom utilities
 const root = path.join('..', 'util', 'path');
-console.log(root)
+console.log(root);
 
 // Controllers
 const coursesController = require(path.join('..', 'controllers', 'courses'));

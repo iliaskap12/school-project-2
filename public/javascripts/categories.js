@@ -52,8 +52,10 @@ async function populateCategories () {
   document
     .getElementById('header')
     .appendChild(
-      parser.parseFromString(template({categories: categories.categories}), 'text/html').body
-        .firstElementChild
+      parser.parseFromString(
+        template({ categories: categories.categories }),
+        'text/html'
+      ).body.firstElementChild
     );
   Array.from(document.getElementsByClassName('category')).forEach(
     categoryEl => {
@@ -63,7 +65,7 @@ async function populateCategories () {
 }
 
 function onCategoryClick () {
-  location.href = '/html/courses.html'
+  location.href = '/html/courses.html';
   // fetch(`/courses`, { redirect: 'follow' }).catch(
   //   error => console.error(error)
   // );
