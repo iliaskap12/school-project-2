@@ -64,7 +64,6 @@ window.addEventListener('load', () => {
     let results = document.getElementsByClassName("results")[0].
       appendChild(
         parser.parseFromString(template({content: content.content}), 'text/html').body
-          .firstElementChild
       );
   }
 
