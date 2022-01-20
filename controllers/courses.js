@@ -8,7 +8,7 @@ const uri = require(path.join('..', 'util', 'uri'));
 
 function coursesController (req, res, next) {
   res.redirect(
-    301,
+    302,
     path.join('..', 'courses.html') + '?' + new URLSearchParams(req.query)
   );
 }

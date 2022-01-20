@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr" lang="en-us">
     <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
+        <meta charset="UTF-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>Thanks</title>
     </head>
     <body>
-    
+        <main>
+            <h1>Ευχαριστούμε για την εγγραφή <span id="username"></span>!</h1>
+            <a href="index.html">Αρχική</a>
+        </main>
     </body>
+    <script>
+        const username = window.sessionStorage.getItem('username');
+        document.getElementById('username').textContent = username;
+    </script>
 </html>

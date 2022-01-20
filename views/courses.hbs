@@ -3,15 +3,17 @@
     <h1 id="{{courses.id}}" class="category">{{courses.category}}</h1>
 </header>
 <main>
-    {{#each courses.courses}}
-        <article class="course">
-            <img src="{{../courses.url}}/{{this.img}}" alt="{{this.title}}" />
-            <h2 class="title">{{this.title}}</h2>
-            <p class="description">{{this.description}}</p>
-            <details class="goals">
-                <summary>Στόχοι</summary>
-                <p>{{this.objectives}}</p>
-            </details>
-        </article>
-    {{/each}}
+    <section class="courses">
+        {{#each courses.courses}}
+            <article class="course">
+                <img src="{{../courses.url}}/{{this.img}}" alt="{{this.title}}" />
+                <h2 class="title">{{this.title}}</h2>
+                <p class="description">{{this.description}}</p>
+                <details class="goals">
+                    <summary>Στόχοι</summary>
+                    <p>{{this.objectives}}</p>
+                </details>
+            </article>
+        {{/each}}
+    </section>
 </main>

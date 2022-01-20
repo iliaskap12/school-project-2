@@ -4,12 +4,10 @@ const MongoClient = mongodb.MongoClient;
 let _db;
 
 const mongoConnect = callback => {
-  MongoClient.connect(
-    'mongodb+srv://maximilian:9u4biljMQc4jjqbe@cluster0-ntrwp.mongodb.net/shop?retryWrites=true'
-  )
+  MongoClient.connect('mongodb://localhost:27017')
     .then(client => {
       console.log('Connected!');
-      _db = client.db();
+      _db = client.db('lecture-book');
       callback();
     })
     .catch(err => {

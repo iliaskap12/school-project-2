@@ -11,13 +11,16 @@
     <body>
         <header id="header"></header>
         <main>
+            <section id="account">
+                <button id="register">Εγγραφή</button>
+            </section>
             <section>
                 <form id="form">
-                    <label for="txt-search">Search</label>
+                    <label for="txt-search">Αναζήτηση</label>
                     <input id="txt-search" placeholder="e.g. Ψηφιακές Τεχνολογίες στην Εκπαίδευση"
                            required
                            type="text">
-                    <button type="submit">Search</button>
+                    <button type="submit">Αναζήτηση</button>
                 </form>
             </section>
             <section class="results">
@@ -26,4 +29,12 @@
     </body>
     <script src="categories.js" type="module"></script>
     <script src="search.js"></script>
+    <script>
+        document.getElementById("register").addEventListener("click", () => {
+            window.location.href = '/register';
+        });
+        if (window.sessionStorage.getItem("_id")) {
+            document.getElementById("account").remove();
+        }
+    </script>
 </html>

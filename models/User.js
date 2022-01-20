@@ -1,39 +1,84 @@
 const path = require('path');
+const bcrypt = require('bcrypt');
 const root = require(path.join('..', 'util', 'path'));
 
-const mongodb = require('mongodb');
-const getDb = require(path.join(root, 'util', 'database')).getDb;
-
-const ObjectId = mongodb.ObjectId;
 const UserDAO = require(path.join(root, 'middleware', 'UserDAO'));
 
 class User {
-  #username;
-  #_id;
-  #email;
+  #_address;
+  #_info;
+  #_account;
+  #_security;
 
-  constructor (username, email, id) {
-    this.#username = username;
-    this.#email = email;
-    this.#_id = id;
+  constructor (userData) {
+    this.#_address = userData.address;
+    this.#_info = userData.info;
+    this.#_account = userData.account;
+    const salt = bcrypt.genSaltSync(10);
+    this.#_account.password = bcrypt.hashSync(
+      `${this.#_account.password}`,
+      salt
+    );
   }
 
-  save () {
-    UserDAO.save(this);
+  async save () {
+    return await UserDAO.save(this);
   }
 
-  static findById (userId) {
-    const db = getDb();
-    return db
-      .collection('users')
-      .findOne({ _id: new ObjectId(userId) })
-      .then(user => {
-        console.log(user);
-        return user;
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  set _security (security) {
+    this.#_security = security;
+  }
+
+  get _security () {
+    return this.#_security;
+  }
+
+  get _address () {
+    return this.#_address;
+  }
+
+  get _info () {
+    return this.#_info;
+  }
+
+  get _account () {
+    return this.#_account;
+  }
+
+  static async search (data, quantity) {
+    return await UserDAO.search(data, quantity);
+  }
+
+  static generateToken (id) {
+    return bcrypt.hashSync(`${id}`, bcrypt.genSaltSync(10));
+  }
+
+  static async createUser (userData) {
+    try {
+      const user = new User(userData);
+      const result = await User.search(
+        {
+          $or: [
+            { 'info.email': userData.info.email },
+            {
+              'account.username': userData.account.username
+            }
+          ]
+        },
+        {
+          many: false
+        }
+      );
+      if (result.found) {
+        return { success: false, data: result.data };
+      }
+      const id = await user.save();
+      const token = User.generateToken(id.toString());
+      user._security = { _id: id.toString(), _token: token };
+      return { success: true, data: user };
+    } catch (err) {
+      console.error(err);
+    }
   }
 }
 

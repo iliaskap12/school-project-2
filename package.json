@@ -8,6 +8,7 @@
     "start": "npm run lint && npm run format && nodemon app.js"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "~4.16.1",
     "mongodb": "^4.3.0"
   },
