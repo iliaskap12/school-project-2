@@ -31,32 +31,21 @@ async function getCategories () {
   }
 }
 
-async function populateCategories () {
-  const categories = await getCategories();
-  if (categories.error.status) {
-    if (categories.error.unknown) {
-      console.error(`Unknown Error: ${categories.error.unknown}`);
-    } else {
-      console.error(
-        `Bad Request: URI=${categories.error.uri}, STATUS=${
-          categories.error.status
-        }`
-      );
-    }
-  }
-
+async function render (categories) {
   const menuHbs = await fetch('/hbs/menu');
   const menuText = await menuHbs.text();
   const parser = new DOMParser();
   const template = Handlebars.compile(menuText);
-  document
-    .getElementById('header')
-    .appendChild(
-      parser.parseFromString(
-        template({ categories: categories.categories }),
-        'text/html'
-      ).body.firstElementChild
-    );
+  const header = document.getElementById('header');
+  if (!header) {
+    return;
+  }
+  header.appendChild(
+    parser.parseFromString(
+      template({ categories: categories.categories }),
+      'text/html'
+    ).body.firstElementChild
+  );
   Array.from(document.getElementsByClassName('category')).forEach(
     categoryEl => {
       categoryEl.addEventListener('click', onCategoryClick);
@@ -65,10 +54,31 @@ async function populateCategories () {
 }
 
 function onCategoryClick () {
-  location.href = '/html/courses.html';
-  // fetch(`/courses`, { redirect: 'follow' }).catch(
-  //   error => console.error(error)
-  // );
+  fetch(`/courses?category=${this.id}`, { redirect: 'follow' })
+    .then(response => (location.href = response.url))
+    .catch(error => console.error(error));
 }
 
-window.addEventListener('DOMContentLoaded', populateCategories);
+(async () => {
+  const categories = await getCategories();
+  if (handleError(categories)) {
+    return;
+  }
+  await render(categories);
+})();
+
+function handleError (obj) {
+  if (obj.error.status) {
+    if (obj.error.unknown) {
+      console.error(`Unknown Error: ${obj.error.unknown}`);
+    } else {
+      console.error(
+        `Bad Request: URI=${obj.error.uri}, STATUS=${obj.error.status}`
+      );
+    }
+    return true;
+  }
+  return false;
+}
+
+export { getCategories, handleError };

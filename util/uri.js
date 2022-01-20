@@ -5,7 +5,7 @@ const uri = {
   images: `${base}/static/images`,
   courses: {
     title: `${base}/courses/search?title`,
-    id: `${base}/courses/search?id`
+    id: `${base}/courses/search?category`
   },
   categories: `${base}/categories`
 };

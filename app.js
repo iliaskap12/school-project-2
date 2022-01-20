@@ -5,7 +5,10 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public', 'html')));
+app.use(express.static(path.join(__dirname, 'public', 'images')));
+app.use(express.static(path.join(__dirname, 'public', 'javascripts')));
+app.use(express.static(path.join(__dirname, 'public', 'stylesheets')));
 
 const errorController = require(path.join(__dirname, 'controllers', 'error'));
 // const mongoConnect = require('./util/database').mongoConnect;

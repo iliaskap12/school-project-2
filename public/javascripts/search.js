@@ -49,7 +49,7 @@ window.addEventListener('load', () => {
     const parser = new DOMParser();
     const template = Handlebars.compile(result);
     let i = 0;
-    let content = new Array(listOfData.length)
+    let content = new Array(listOfData.length);
     for (const data of listOfData) {
       content[i] = {
         title: data.title,
@@ -57,13 +57,17 @@ window.addEventListener('load', () => {
         objectives: data.objectives,
         description: data.description
       };
-      i++
+      i++;
     }
     content = { content: content /* <-- array */ };
     console.log(JSON.stringify(content));
-    let results = document.getElementsByClassName("results")[0].
-      appendChild(
-        parser.parseFromString(template({content: content.content}), 'text/html').body
+    let results = document
+      .getElementsByClassName('results')[0]
+      .appendChild(
+        parser.parseFromString(
+          template({ content: content.content }),
+          'text/html'
+        ).body
       );
   }
 
