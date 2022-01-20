@@ -132,18 +132,19 @@ class FormControl {
       case validity.valid:
         return true;
       case validity.valueMissing:
-        errorMessage = 'This field is required.';
+        errorMessage = 'Αυτό το πεδίο είναι υποχρεωτικό.';
         break;
       case validity.typeMismatch:
         if (this.#_formControlEl.type === 'email') {
-          errorMessage = 'Please enter a valid email address.';
+          errorMessage =
+            'Παρακαλώ εισάγετε μία ορθή διεύθυνση ηλεκτρονικού ταχυδρομείου.';
           break;
         }
-        errorMessage = 'Please use the correct input type.';
+        errorMessage = 'Παρακαλώ χρησιμοποιήστε τον σωστό τύπο πεδίου.';
         break;
       case validity.tooShort:
       case validity.tooLong:
-        errorMessage = 'The value for this field must be ';
+        errorMessage = 'Η τιμή αυτού του πεδίου πρέπει να είναι ';
         const length = this.#_formControlEl.value.length;
         const minLength = parseInt(
           this.#_formControlEl.getAttribute('minlength')
@@ -151,46 +152,46 @@ class FormControl {
         const maxLength = parseInt(
           this.#_formControlEl.getAttribute('maxlength')
         );
-        const plural = maxLength === 1 ? '' : 's';
+        const plural = maxLength === 1 ? 'α' : 'ες';
 
         if (minLength) {
-          errorMessage += `at least ${minLength} `;
+          errorMessage += `τουλάχιστον ${minLength} `;
         }
 
         if (maxLength) {
-          if (errorMessage !== 'You must choose ') errorMessage += 'and ';
-          errorMessage += `at most ${maxLength} `;
+          if (errorMessage !== 'Πρέπει να επιλέξετε ') errorMessage += 'και ';
+          errorMessage += `το πολύ ${maxLength} `;
         }
 
         if (maxLength === minLength) {
           errorMessage += `${maxLength} `;
         }
 
-        errorMessage += ` character${plural}. You have entered ${length} character${
-          length === 1 ? '' : 's'
+        errorMessage += ` χαρακτήρ${plural}. Έχετε εισάγει ${length} χαρακτήρ${
+          length === 1 ? 'α' : 'ες'
         }.`;
         break;
       case validity.badInput:
-        errorMessage = 'Please enter a number.';
+        errorMessage = 'Παρακαλώ εισάγετε αριθμό.';
         break;
       case validity.stepMismatch:
-        errorMessage = 'Please select a valid value.';
+        errorMessage = 'Παρακαλώ εισάγετε μία ορθή τιμή.';
         break;
       case validity.rangeOverflow:
       case validity.rangeUnderflow:
-        errorMessage = 'The value for this field must be ';
+        errorMessage = 'Η τιμή για αυτό το πεδίο πρέπει να είναι ';
         const minValue = this.#_formControlEl.getAttribute('min');
         const maxValue = this.#_formControlEl.getAttribute('max');
 
         if (minValue) {
-          errorMessage += `less than ${maxValue} `;
+          errorMessage += `λιγότερο από ${maxValue} `;
         }
         if (maxValue) {
-          if (minValue) errorMessage += 'and ';
-          errorMessage += `more than ${minValue} `;
+          if (minValue) errorMessage += 'και ';
+          errorMessage += `περισσότερο από ${minValue} `;
         }
 
-        errorMessage += `. You have entered ${this.#_formControlEl.value}.`;
+        errorMessage += `. Έχετε εισάγει ${this.#_formControlEl.value}.`;
         break;
       case validity.patternMismatch:
         if (this.#_formControlEl.hasAttribute('data-pattern-message')) {
@@ -199,13 +200,13 @@ class FormControl {
           );
           break;
         }
-        errorMessage = 'Please match the requested format.';
+        errorMessage = 'Παρακαλώ ακολουθήστε το κατάλληλο μοτίβο.';
         break;
       case validity.customError:
         errorMessage = this.#_formControlEl.validationMessage;
         break;
       default:
-        errorMessage = 'The value you entered for this field is invalid.';
+        errorMessage = 'Η τιμή που εισάγατε δεν είναι ορθή.';
         break;
     }
 
@@ -538,7 +539,56 @@ class Error {
   }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
+  const login = document.getElementsByClassName('hero-section')[0];
+  const logout = document.querySelector('.logout .btn');
+  logout.addEventListener('click', async () => {
+    const result = await fetch('/logout', {
+      method: 'post',
+      body: JSON.stringify({
+        data: {
+          _security: {
+            _id: window.sessionStorage.getItem('_id'),
+            _token: window.sessionStorage.getItem('_token')
+          },
+          _id: window.sessionStorage.getItem('_id')
+        }
+      }),
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    const json = await result.json();
+    if (json.success) {
+      window.sessionStorage.clear();
+      window.location.href = '/profile';
+    } else {
+      onError(result, result.data);
+    }
+  });
+
+  document.getElementById('goback').addEventListener('click', () => {
+    window.location.href = '/';
+  });
+  if (window.sessionStorage.getItem('_id')) {
+    try {
+      const result = await getProfile({
+        _id: window.sessionStorage.getItem('_id'),
+        _security: {
+          _id: window.sessionStorage.getItem('_id'),
+          _token: window.sessionStorage.getItem('_token')
+        }
+      });
+      if (result.result.success) {
+        login.remove();
+        return;
+      } else {
+        window.sessionStorage.clear();
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  logout.style.display = 'none';
   const form = new Form('login-form', onSubmit);
 });
 
@@ -549,6 +599,7 @@ function formatData (element) {
 function onLoginSuccess (response, userData) {
   window.sessionStorage.setItem('_id', userData._security._id);
   window.sessionStorage.setItem('_token', userData._security._token);
+  document.getElementsByClassName('hero-section')[0].remove();
 }
 
 function onError (response, userData) {
@@ -559,7 +610,8 @@ function onError (response, userData) {
   errorMessage.textContent = userData;
   const closeBtnContainer = document.createElement('div');
   const close = document.createElement('button');
-  close.textContent = 'Close';
+  close.classList.add('btn', 'secondary-button');
+  close.textContent = 'Κλείσιμο';
   close.addEventListener('click', () => {
     const errorBox = document.getElementById('login-failure');
     errorBox.remove();
@@ -583,7 +635,7 @@ async function login (userData) {
     } else {
       onError(json, json.result.data);
     }
-    return json.result.data;
+    return json.result;
   } catch (e) {
     console.error(e);
   }
@@ -597,12 +649,13 @@ async function getProfile (userData) {
       headers: { 'Content-Type': 'application/json' }
     });
     const json = await response.json();
-    console.log(json);
     if (json.result.success) {
-      render(json.result.data.data).catch(e => console.error(e));
+      renderProfile(json.result.data.data).catch(e => console.error(e));
+      document.querySelector('.logout .btn').style.display = 'block';
     } else {
       onError(json, json.result.data);
     }
+    return json;
   } catch (e) {
     console.error(e);
   }
@@ -612,8 +665,8 @@ async function onSubmit (element) {
   const userData = formatData(element);
   try {
     const loginResult = await login(userData);
-    if (loginResult) {
-      getProfile(loginResult)
+    if (loginResult.success) {
+      getProfile(loginResult.data)
         .then(res => console.log(res))
         .catch(e => console.error(e));
     }
@@ -622,7 +675,7 @@ async function onSubmit (element) {
   }
 }
 
-async function render (profile) {
+async function renderProfile (profile) {
   const profileHbs = await fetch('/hbs/profile');
   const profileText = await profileHbs.text();
   const parser = new DOMParser();
@@ -630,8 +683,10 @@ async function render (profile) {
   const templateData = {
     profile: profile
   };
-  document.body.appendChild(
-    parser.parseFromString(template(templateData), 'text/html').body
-      .firstElementChild
-  );
+  document
+    .getElementsByTagName('main')[0]
+    .appendChild(
+      parser.parseFromString(template(templateData), 'text/html').body
+        .firstElementChild
+    );
 }

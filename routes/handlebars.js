@@ -19,13 +19,9 @@ const handlebarsControllers = require(path.join(
 
 router.get('/header', handlebarsControllers.headerSection);
 router.get('/footer', handlebarsControllers.footer);
-router.get('/error', handlebarsControllers.errorHbs);
 router.get('/search', handlebarsControllers.searchResults);
 router.get('/menu', handlebarsControllers.menu);
 router.get('/courses', handlebarsControllers.coursesHbs);
-router.get('/thanks', handlebarsControllers.thanks);
-router.get('/register', handlebarsControllers.registerUser);
-router.get('/login', handlebarsControllers.login);
 router.get('/profile', handlebarsControllers.userProfile);
 
 module.exports = router;

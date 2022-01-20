@@ -1,8 +1,13 @@
-{{#each content}}
-    <article class="card">
-        <h2 class="heading"> {{this.title}} </h2>
-        <h3 class="heading"> {{this.category}} </h3>
-        <h3 class="heading"> {{this.objectives}} </h3>
-        <p class="descriprion"> {{this.description}} </p> 
-    </article>
-{{/each}}
+<section class="courses">
+    {{#each courses.courses}}
+        <article class="course">
+            <img src="{{../courses.url}}/{{this.img}}" alt="{{this.title}}" />
+            <h2 class="title">{{this.title}}</h2>
+            <p class="description">{{this.description}}</p>
+            <details class="goals">
+                <summary>Στόχοι</summary>
+                <p>{{this.objectives}}</p>
+            </details>
+        </article>
+    {{/each}}
+</section>

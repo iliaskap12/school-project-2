@@ -1,8 +1,8 @@
-<header id="header">
-    <a href="/index.html">Πίσω</a>
-    <h1 id="{{courses.id}}" class="category">{{courses.category}}</h1>
-</header>
-<main>
+<article>
+    <section id="header" class="hero-section">
+        <a href="/" class="btn secondary-button">Πίσω</a>
+        <h1 id="{{courses.id}}" class="category">Κατηγορία: {{courses.category}}</h1>
+    </section>
     <section class="courses">
         {{#each courses.courses}}
             <article class="course">
@@ -16,4 +16,4 @@
             </article>
         {{/each}}
     </section>
-</main>
+</article>

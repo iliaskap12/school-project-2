@@ -1,91 +1,100 @@
-window.addEventListener('load', () => {
-  async function asyncCallCourse (keyword) {
-    let myHeaders = new Headers();
-    let init = {
-      method: 'GET',
-      headers: myHeaders
-    };
-    let result = await fetch(
-      `https://elearning-aueb.herokuapp.com/courses/search?title=${keyword}`,
-      init
-    );
-    result = await result.json();
-    console.log(result);
-    return result;
-  }
+import { getCategories, handleError } from './categories.js';
 
-  async function asyncCallCategories () {
-    let myHeaders = new Headers();
-    let init = {
-      method: 'GET',
-      headers: myHeaders
-    };
-    let result = await fetch(
-      `https://elearning-aueb.herokuapp.com/categories`,
-      init
-    );
-    result = await result.json();
-    return result;
+async function getCategoryTitle (categoryId) {
+  const categories = await getCategories();
+  if (handleError(categories)) {
+    return { title: '' };
   }
-
-  function findCategoryTitle (listOfData, listOfCategories) {
-    let listOfTitles = new Array(listOfData.length);
-    let i = 0;
-    for (const data of listOfData) {
-      for (const category of listOfCategories) {
-        if (data.category === category.id) {
-          listOfTitles[i] = category.title;
-          i++;
-          break;
-        }
-      }
+  for (const category of categories.categories) {
+    if (parseInt(categoryId) === parseInt(category.id)) {
+      return category.title;
     }
-    return listOfTitles;
   }
+  return { title: '' };
+}
 
-  async function asyncCallHandlebars (listOfData, listOfTitles) {
-    let result = await fetch('/hbs/search');
-    result = await result.text();
-    const parser = new DOMParser();
-    const template = Handlebars.compile(result);
-    let i = 0;
-    let content = new Array(listOfData.length);
-    for (const data of listOfData) {
-      content[i] = {
-        title: data.title,
-        category: listOfTitles[i],
-        objectives: data.objectives,
-        description: data.description
-      };
-      i++;
+async function getCourses () {
+  const courses = {
+    error: {
+      uri: false,
+      status: false,
+      unknown: false
+    },
+    keyword: document.getElementById('txt-search').value,
+    category: '',
+    courses: []
+  };
+
+  try {
+    let responseUri = await fetch('/courses-uri');
+    if (!responseUri.ok) {
+      courses.error.uri = '/courses-uri';
+      courses.error.status = responseUri.status;
+      return courses;
     }
-    content = { content: content /* <-- array */ };
-    console.log(JSON.stringify(content));
-    let results = document
-      .getElementsByClassName('results')[0]
-      .appendChild(
-        parser.parseFromString(
-          template({ content: content.content }),
-          'text/html'
-        ).body
-      );
-  }
+    const coursesUri = await responseUri.json();
 
+    const response = await fetch(`${coursesUri.uri.title}=${courses.keyword}`);
+    if (!response.ok) {
+      courses.error.uri = `${coursesUri.uri.title}=${courses.keyword}`;
+      courses.error.status = response.status;
+      return courses;
+    }
+    courses.courses = await response.json();
+
+    responseUri = await fetch('/images-uri');
+    if (!responseUri.ok) {
+      courses.error.uri = responseUri.uri;
+      courses.error.status = responseUri.status;
+      return courses;
+    }
+    const imagesUrl = await responseUri.json();
+    courses.url = imagesUrl.uri;
+
+    for (const course of courses.courses) {
+      courses.category = await getCategoryTitle(course.category);
+    }
+
+    return courses;
+  } catch (error) {
+    courses.error.unknown = error;
+    return courses;
+  }
+}
+
+async function render (courses) {
+  const coursesHbs = await fetch('/hbs/search');
+  const coursesText = await coursesHbs.text();
+  const parser = new DOMParser();
+  const template = Handlebars.compile(coursesText);
+  const templateData = {
+    courses: courses
+  };
+  if (!templateData) return;
+  document
+    .getElementById('results')
+    .appendChild(
+      parser.parseFromString(template(templateData), 'text/html').body
+        .firstElementChild
+    );
+}
+
+async function searchCourses () {
+  const courses = await getCourses();
+  if (handleError(courses)) {
+    return;
+  }
+  await render(courses);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('form').addEventListener('submit', async e => {
     e.preventDefault();
     let keyword = document.getElementById('txt-search');
     if (keyword.value.length === 0) {
-      keyword.setCustomValidity(
-        'Please enter a name or keyword for us to search!'
-      );
+      keyword.setCustomValidity('Παρακαλώ εισάγετε κάποια λέξη-κλειδί.');
     } else {
-      let responseCourses = await asyncCallCourse(keyword.value);
-      let responseCategories = await asyncCallCategories();
-      let categoryTitles = findCategoryTitle(
-        responseCourses,
-        responseCategories
-      );
-      let handlebars = asyncCallHandlebars(responseCourses, categoryTitles);
+      await searchCourses();
     }
   });
 });

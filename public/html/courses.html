@@ -1,16 +1,54 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en-us">
+<html dir="ltr" lang="el">
     <head>
         <meta charset="UTF-8"/>
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <title>Courses</title>
+        <title>Μαθήματα</title>
         <link rel="preconnect" href="https://elearning-aueb.herokuapp.com/" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <link rel="modulepreload" href="categories.js" as="script" crossOrigin="anonymous">
         <link rel="preload" href="courses.js" as="script" crossOrigin="anonymous">
+        <script src="header.js"></script>
+        <script src="footer.js"></script>
+        <meta content="SEO description <!--TODO" name="description"/>
+        <meta content="#FA5FC1ff" name="theme-color"/>
+        <link href="base.css" rel="stylesheet"/>
+        <link href="normalize.css" rel="stylesheet"/>
+        <link href="header.css" rel="stylesheet"/>
+        <link href="main.css" rel="stylesheet"/>
+        <link href="footer.css" rel="stylesheet"/>
+        <link href="layout.css" rel="stylesheet"/>
+        <link href="menu.css" rel="stylesheet"/>
+        <link href="courses.css" rel="stylesheet"/>
+        <link href="small-tablet.css" media="screen and (min-width: 30em) and (max-width: 48em)" rel="stylesheet"/>
+        <link href="tablet.css" media="screen and (min-width: 48em) and (max-width: 67.5em)" rel="stylesheet"/>
+        <link href="small-desktop.css" media="screen and (min-width: 67.5em) and (max-width: 90em)" rel="stylesheet"/>
+        <link href="desktop.css" media="screen and (min-width: 90em)" rel="stylesheet"/>
+        <style>
+            main {
+                margin-top: 25%;
+            }
+            
+            .btn.secondary-button {
+                border: 0;
+                position: absolute;
+                top: 175px;
+                left: 5%;
+                cursor: pointer;
+            }
+            
+            #header .category {
+                text-align: center;
+                font-size: 2.5em;
+                margin: 0 auto;
+                width: fit-content;
+            }
+        </style>
     </head>
     <body>
-    
+        <main id="main">
+        
+        </main>
     </body>
     <script src="courses.js" type="module"></script>
 </html>

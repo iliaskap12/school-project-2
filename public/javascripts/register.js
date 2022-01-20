@@ -1,5 +1,11 @@
 'use strict';
 
+(() => {
+  if (window.sessionStorage.getItem('_id')) {
+    window.location.href = '/profile';
+  }
+})();
+
 window.addEventListener('DOMContentLoaded', () => {
   const signupForm = new Form('sign-up-form', onSubmit);
 });
@@ -60,17 +66,18 @@ function onError (response, userData) {
   error.classList.add('error', 'fail');
   const errorMessage = document.createElement('em');
   if (response.error.email) {
-    errorMessage.textContent = `Email: ${
+    errorMessage.textContent = `Το email: ${
       userData.info.email
-    } is already in use.`;
+    } χρησιμοποιείται ήδη.`;
   } else {
-    errorMessage.textContent = `Username: ${
+    errorMessage.textContent = `Το username: ${
       userData.account.username
-    } is already in use.`;
+    } χρησιμοποιείται ήδη.`;
   }
   const closeBtnContainer = document.createElement('div');
   const close = document.createElement('button');
-  close.textContent = 'Close';
+  close.classList.add('btn', 'secondary-button');
+  close.textContent = 'Κλείσιμο';
   close.addEventListener('click', () => {
     const errorBox = document.getElementById('registration-failure');
     errorBox.remove();
@@ -239,18 +246,19 @@ class FormControl {
       case validity.valid:
         return true;
       case validity.valueMissing:
-        errorMessage = 'This field is required.';
+        errorMessage = 'Αυτό το πεδίο είναι υποχρεωτικό.';
         break;
       case validity.typeMismatch:
         if (this.#_formControlEl.type === 'email') {
-          errorMessage = 'Please enter a valid email address.';
+          errorMessage =
+            'Παρακαλώ εισάγετε μία ορθή διεύθυνση ηλεκτρονικού ταχυδρομείου.';
           break;
         }
-        errorMessage = 'Please use the correct input type.';
+        errorMessage = 'Παρακαλώ χρησιμοποιήστε τον σωστό τύπο πεδίου.';
         break;
       case validity.tooShort:
       case validity.tooLong:
-        errorMessage = 'The value for this field must be ';
+        errorMessage = 'Η τιμή αυτού του πεδίου πρέπει να είναι ';
         const length = this.#_formControlEl.value.length;
         const minLength = parseInt(
           this.#_formControlEl.getAttribute('minlength')
@@ -258,46 +266,46 @@ class FormControl {
         const maxLength = parseInt(
           this.#_formControlEl.getAttribute('maxlength')
         );
-        const plural = maxLength === 1 ? '' : 's';
+        const plural = maxLength === 1 ? 'α' : 'ες';
 
         if (minLength) {
-          errorMessage += `at least ${minLength} `;
+          errorMessage += `τουλάχιστον ${minLength} `;
         }
 
         if (maxLength) {
-          if (errorMessage !== 'You must choose ') errorMessage += 'and ';
-          errorMessage += `at most ${maxLength} `;
+          if (errorMessage !== 'Πρέπει να επιλέξετε ') errorMessage += 'και ';
+          errorMessage += `το πολύ ${maxLength} `;
         }
 
         if (maxLength === minLength) {
           errorMessage += `${maxLength} `;
         }
 
-        errorMessage += ` character${plural}. You have entered ${length} character${
-          length === 1 ? '' : 's'
+        errorMessage += ` χαρακτήρ${plural}. Έχετε εισάγει ${length} χαρακτήρ${
+          length === 1 ? 'α' : 'ες'
         }.`;
         break;
       case validity.badInput:
-        errorMessage = 'Please enter a number.';
+        errorMessage = 'Παρακαλώ εισάγετε αριθμό.';
         break;
       case validity.stepMismatch:
-        errorMessage = 'Please select a valid value.';
+        errorMessage = 'Παρακαλώ εισάγετε μία ορθή τιμή.';
         break;
       case validity.rangeOverflow:
       case validity.rangeUnderflow:
-        errorMessage = 'The value for this field must be ';
+        errorMessage = 'Η τιμή για αυτό το πεδίο πρέπει να είναι ';
         const minValue = this.#_formControlEl.getAttribute('min');
         const maxValue = this.#_formControlEl.getAttribute('max');
 
         if (minValue) {
-          errorMessage += `less than ${maxValue} `;
+          errorMessage += `λιγότερο από ${maxValue} `;
         }
         if (maxValue) {
-          if (minValue) errorMessage += 'and ';
-          errorMessage += `more than ${minValue} `;
+          if (minValue) errorMessage += 'και ';
+          errorMessage += `περισσότερο από ${minValue} `;
         }
 
-        errorMessage += `. You have entered ${this.#_formControlEl.value}.`;
+        errorMessage += `. Έχετε εισάγει ${this.#_formControlEl.value}.`;
         break;
       case validity.patternMismatch:
         if (this.#_formControlEl.hasAttribute('data-pattern-message')) {
@@ -306,13 +314,13 @@ class FormControl {
           );
           break;
         }
-        errorMessage = 'Please match the requested format.';
+        errorMessage = 'Παρακαλώ ακολουθήστε το κατάλληλο μοτίβο.';
         break;
       case validity.customError:
         errorMessage = this.#_formControlEl.validationMessage;
         break;
       default:
-        errorMessage = 'The value you entered for this field is invalid.';
+        errorMessage = 'Η τιμή που εισάγατε δεν είναι ορθή.';
         break;
     }
 

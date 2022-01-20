@@ -5,9 +5,9 @@
     <section id="personal">
         <h2>Προσωπικά Στοιχεία</h2>
         <div>
-            <h3>Ηλικία: {{profile.info.age}}</h3>
-            <h3>Εκπαίδευση: {{profile.info.education}}</h3>
-            <h3>Username: {{profile.account.username}}</h3>
+            <h3>Ηλικία: <span class="placeholder">{{profile.info.age}}</span></h3>
+            <h3>Εκπαίδευση: <span class="placeholder">{{profile.info.education}}</span></h3>
+            <h3>Username: <span class="placeholder">{{profile.account.username}}</span></h3>
         </div>
     </section>
     <section id="contact">
@@ -17,12 +17,13 @@
             <h3>Τηλέφωνο: <a href="tel:{{profile.info.phone}}">{{profile.info.phone}}</a></h3>
             <h3>Διεύθυνση:</h3>
             <section id="address">
-                <h4>Χώρα: {{profile.address.country}}</h4>
-                <h4>Νομός/Πολιτεία: {{profile.address.state}}</h4>
-                <h4>Πόλη: {{profile.address.city}}</h4>
-                <h4><abbr title="Ταχυδρομικός Κώδικας">Τ.Κ.:</abbr> {{profile.address.zip}}</h4>
-                <h4>Οδός: {{profile.address.street}}</h4>
-                <h4>Αριθμός Κατοικίας: {{profile.address.number}}</h4>
+                <h4>Χώρα: <span class="placeholder">{{profile.address.country}}</span></h4>
+                <h4>Νομός/Πολιτεία: <span class="placeholder">{{profile.address.state}}</span></h4>
+                <h4>Πόλη: <span class="placeholder">{{profile.address.city}}</span></h4>
+                <h4><abbr title="Ταχυδρομικός Κώδικας">Τ.Κ.:</abbr> <span class="placeholder">{{profile.address
+                .zip}}</span></h4>
+                <h4>Οδός: <span class="placeholder">{{profile.address.street}}</span></h4>
+                <h4>Αριθμός Κατοικίας: <span class="placeholder">{{profile.address.number}}</span></h4>
             </section>
         </address>
     </section>

@@ -14,11 +14,9 @@ app.use(express.static(path.join(__dirname, 'public', 'assets')));
 
 const errorController = require(path.join(__dirname, 'controllers', 'error'));
 const mongoConnect = require('./util/database').mongoConnect;
-const User = require(path.join(__dirname, 'models', 'User'));
 
 const handlebarsRouter = require(path.join(__dirname, 'routes', 'handlebars'));
 const indexRouter = require(path.join(__dirname, 'routes', 'index'));
-const usersRouter = require(path.join(__dirname, 'routes', 'user'));
 const coursesRouter = require(path.join(__dirname, 'routes', 'courses'));
 const registerRouter = require(path.join(__dirname, 'routes', 'register'));
 const thanksRouter = require(path.join(__dirname, 'routes', 'thanks'));
@@ -36,8 +34,6 @@ app.use(thanksRouter);
 app.use(profileRouter);
 app.use('/hbs', handlebarsRouter);
 app.use(indexRouter);
-// app.use('/users', usersRouter);
-
 app.use(errorController.get404);
 
 mongoConnect(() => {

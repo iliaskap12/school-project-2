@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en-us">
+<html dir="ltr" lang="el">
     <head>
         <meta charset="utf-8"/>
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <title>Sign Up</title>
+        <title>Profile</title>
         <link rel="preconnect" href="https://elearning-aueb.herokuapp.com/" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <link rel="preload" href="profile.js" as="script" crossOrigin="anonymous">
@@ -21,11 +21,86 @@
         <link href="small-desktop.css" media="screen and (min-width: 67.5em) and (max-width: 90em)" rel="stylesheet"/>
         <link href="desktop.css" media="screen and (min-width: 90em)" rel="stylesheet"/>
         <script src="profile.js"></script>
+        <script src="header.js"></script>
+        <script src="footer.js"></script>
+        <style>
+            main {
+                padding: 5%;
+            }
+            
+            .form-container h2 {
+                text-align: center;
+            }
+            
+            .profile {
+                margin: 25% auto 0;
+                width: fit-content;
+            }
+            
+            .profile > section {
+                padding: 0;
+            }
+            
+            #name {
+                font-size: 1.4em;
+            }
+            
+            .profile h2 {
+                font-size: 2em;
+                color: var(--brand-color);
+            }
+
+            .profile h3 {
+                font-size: 1.75em;
+                color: var(--complimentary-color);
+                margin: 0;
+            }
+            
+            .profile h4 {
+                font-size: 1.5em;
+                color: var(--focus-color);
+                margin: 0;
+            }
+            
+            #address {
+                margin-left: 5%;
+            }
+            
+            .placeholder {
+                text-decoration: underline dotted;
+                font-size: 0.8em;
+                color: var(--link-color-hover);
+                display: inline-block;
+                margin-left: 2.5%;
+            }
+            
+            #goback {
+                border: 0;
+                position: absolute;
+                top: 175px;
+                left: 5%;
+                cursor: pointer;
+            }
+            
+            .logout .btn {
+                border: 0;
+                position: absolute;
+                top: 175px;
+                right: 5%;
+                cursor: pointer;
+            }
+        </style>
     </head>
     <body>
         <main>
+            <section>
+                <button id="goback" class="btn secondary-button">Αρχική Σελίδα</button>
+            </section>
+            <section class="logout">
+                <button class="btn secondary-button">Αποσύνδεση</button>
+            </section>
             <article class="form-container hero-section">
-                <h2>Log In</h2>
+                <h2>Σύνδεση</h2>
                 <form autocomplete="on" class="form login" id="login-form">
                     <label for="username">
                         Username:
@@ -33,7 +108,7 @@
                                 autocomplete="username"
                                 id="username"
                                 name="username"
-                                placeholder="e.g. iliaskap11"
+                                placeholder="π.χ. iliaskap11"
                                 required="required"
                                 type="text"
                         />
@@ -44,12 +119,12 @@
                         ></em>
                     </label>
                     <label for="password">
-                        Password:
+                        Συνθηματικό:
                         <input
                                 autocomplete="current-password"
                                 id="password"
                                 name="password"
-                                placeholder="e.g. @uc8^^u56%59K"
+                                placeholder="π.χ. @uc8^^u56%59K"
                                 required="required"
                                 type="password"
                         />
@@ -59,7 +134,7 @@
                                 class="validation-error"
                         ></em>
                     </label>
-                    <button id="login" type="submit">Log In</button>
+                    <button id="login" type="submit" class="btn secondary-button">Σύνδεση</button>
                 </form>
             </article>
         </main>

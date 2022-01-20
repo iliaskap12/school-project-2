@@ -30,7 +30,7 @@ async function getCourses () {
   };
 
   if (!courses.category) {
-    courses.error.unknown = 'Category not found';
+    courses.error.unknown = 'Η κατηγορία δεν βρέθηκε.';
     return courses;
   }
 
@@ -75,9 +75,12 @@ async function render (courses) {
   const templateData = {
     courses: courses
   };
-  document.body.appendChild(
-    parser.parseFromString(template(templateData), 'text/html').body
-  );
+  document
+    .getElementById('main')
+    .appendChild(
+      parser.parseFromString(template(templateData), 'text/html').body
+        .firstElementChild
+    );
 }
 
 (async () => {

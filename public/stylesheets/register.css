@@ -287,6 +287,7 @@ label[for="signed-in"]:focus-within {
     color: var(--error-color);
     position: absolute;
     bottom: 0;
+    transform: translateY(25px);
 }
 
 input:not([type="checkbox"], [type="radio"]).error,
@@ -306,7 +307,7 @@ label.error {
 }
 
 .validation-wrapper {
-    /* padding-bottom: calc(var(--padding-bottom) - 1.2em); */
+    padding-bottom: calc(var(--padding-bottom) - 1.2em);
     height: min-content;
 }
 
@@ -314,7 +315,7 @@ label.error {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%);
+    transform: translate(-50%, -50%);
     max-width: 80vw;
     width: 600px;
     max-height: 40vh;
@@ -325,6 +326,8 @@ label.error {
     justify-content: space-evenly;
     align-items: center;
     background-color: var(--background-color);
+    text-align: center;
+    padding: 2.5%;
 }
 
 .error.fail em {
@@ -333,12 +336,34 @@ label.error {
 }
 
 .error.fail button {
-    box-shadow: none;
-    border: var(--border-width) solid var(--text-color);
-    color: var(--text-color);
-    background-color: var(--brand-color);
-    padding: 5px 10px;
     font-size: 1.4rem;
+    cursor: pointer;
+    border: 0;
+}
+
+section.education {
+    padding-top: 0;
+}
+
+section.personal-info {
+    padding-bottom: 0;
+}
+
+.required {
+    padding-top: 2em;
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+.submit {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2.5em;
+}
+
+section label {
+    margin: 1em auto;
 }
 
 @media only screen and (min-width: 30em) {

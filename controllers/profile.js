@@ -25,7 +25,6 @@ async function getProfile (req, res, next) {
           req.body.data._security._token
         )
       ) {
-        console.log(req.body.data);
         res.status(200).json({
           result: {
             success: true,
@@ -38,17 +37,17 @@ async function getProfile (req, res, next) {
       } else {
         res
           .status(401)
-          .json({ result: { success: false, data: 'Access denied.' } });
+          .json({ result: { success: false, data: 'Άρνηση πρόσβασης.' } });
       }
     } else {
       res
         .status(400)
-        .json({ result: { success: false, data: 'Missing information' } });
+        .json({ result: { success: false, data: 'Ελλιπείς πληροφορίες.' } });
     }
   } catch (e) {
     res
       .status(500)
-      .json({ result: { success: false, data: 'Unexpected error.' } });
+      .json({ result: { success: false, data: 'Αναπάντεχο σφάλμα.' } });
   }
 }
 
@@ -88,22 +87,28 @@ async function logout (req, res, next) {
     if (
       req.body &&
       req.body.data &&
-      req.body.data._token &&
-      req.body.data._id
+      req.body.data._security &&
+      req.body.data._security._token &&
+      req.body.data._security._id
     ) {
-      if (users.isLogged(req.body.data._id, req.body.data._token)) {
+      if (
+        users.isLogged(
+          req.body.data._security._id,
+          req.body.data._security._token
+        )
+      ) {
         users.removeUser(req.body.data._id);
         res.status(200).json({ success: true, data: null });
       } else {
-        res.status(401).json({ success: false, data: 'Access denied.' });
+        res.status(401).json({ success: false, data: 'Άρνηση πρόσβασης.' });
       }
     } else {
       res
         .status(400)
-        .json({ result: { success: false, data: 'Missing information' } });
+        .json({ result: { success: false, data: 'Ελλιπείς πληροφορίες.' } });
     }
   } catch (e) {
-    res.status(500).json({ success: false, data: 'Unexpected error.' });
+    res.status(500).json({ success: false, data: 'Αναπάντεχο σφάλμα.' });
   }
 }
 

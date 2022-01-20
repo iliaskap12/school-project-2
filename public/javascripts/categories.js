@@ -36,15 +36,13 @@ async function render (categories) {
   const menuText = await menuHbs.text();
   const parser = new DOMParser();
   const template = Handlebars.compile(menuText);
-  const header = document.getElementById('header');
-  if (!header) {
-    return;
-  }
-  header.appendChild(
+  const main = document.getElementById('main');
+  main.insertBefore(
     parser.parseFromString(
       template({ categories: categories.categories }),
       'text/html'
-    ).body.firstElementChild
+    ).body.firstElementChild,
+    main.firstElementChild
   );
   Array.from(document.getElementsByClassName('category')).forEach(
     categoryEl => {

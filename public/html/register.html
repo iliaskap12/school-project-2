@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en-us">
+<html dir="ltr" lang="el">
     <head>
         <meta charset="utf-8"/>
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <title>Sign Up</title>
+        <title>Εγγραφή</title>
         <link rel="preconnect" href="https://elearning-aueb.herokuapp.com/" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <link rel="preload" href="register.js" as="script" crossOrigin="anonymous">
@@ -21,106 +21,37 @@
         <link href="small-desktop.css" media="screen and (min-width: 67.5em) and (max-width: 90em)" rel="stylesheet"/>
         <link href="desktop.css" media="screen and (min-width: 90em)" rel="stylesheet"/>
         <script src="register.js" type="module"></script>
+        <script src="header.js"></script>
+        <script src="footer.js"></script>
     </head>
     <body>
-        <header>
-            <div class="branding">
-                <a class="logo-wrapper" href="../index.html">
-                    <img alt="Logo" class="logo" src="/graphics/logo/logo.svg"/>
-                    <!-- Our custom logo.-->
-                </a>
-                <h1>Lecture Book</h1> <!-- Our name.-->
-            </div>
-            <div class="menu"> <!-- This is the pop-up menu. It appears once you have pressed the link top right.-->
-                <div class="button-wrapper"> <!-- The wrapper, usefully for css and js functions.-->
-                                             <!-- When the menu opens, in the position where the wrapper was, the button changes to our complimentary color.
-                                                 Well it doesn't, there is just a secondary wrapper above it.-->
-                    <span class="button-secondary-background"></span>
-                                             <!-- That's the menu button.-->
-                    <button
-                            aria-controls="primary-menu"
-                            aria-expanded="false"
-                            aria-haspopup="true"
-                            aria-label="Website links"
-                            class="button-toggle close"
-                            id="menu-toggle"
-                    >
-                        <!-- It consists of three spans, this is how we make the lines.-->
-                        <span aria-hidden="true" class="line" tabindex="-1"></span>
-                        <span aria-hidden="true" class="line" tabindex="-1"></span>
-                        <span aria-hidden="true" class="line" tabindex="-1"></span>
-                    </button>
-                </div>
-                               <!-- This nav is basicaly the pop up menu.-->
-                <nav aria-expanded="false" aria-label="Primary navigation" class="primary-navigation close">
-                    <!-- A list is the best way to implement it.-->
-                    <ul aria-labelledby="menu-toggle" id="primary-menu" role="menu">
-                        <li role="none">
-                            <a href="index.html" role="menuitem" tabindex="-1">Home</a>
-                        </li>
-                        <li role="none">
-                            <a href="/fields/computer-science/computer-science.html" role="menuitem" tabindex="-1">
-                                Computer Science
-                            </a>
-                        </li>
-                        <li role="none">
-                            <a href="/fields/mathematics/mathematics.html" role="menuitem"
-                               tabindex="-1">Mathematics</a>
-                        </li>
-                        <li role="none">
-                            <a href="/fields/chemistry/chemistry.html" role="menuitem" tabindex="-1">Chemistry</a>
-                        </li>
-                        <li role="none">
-                            <a href="fields/economics/economics.html" role="menuitem" tabindex="-1">Economics</a>
-                        </li>
-                        <li role="none">
-                            <a href="about.html" role="menuitem" tabindex="-1">About Us</a>
-                        </li>
-                        <li role="none">
-                            <a href="contact.html" role="menuitem" tabindex="-1">Contact Us</a>
-                        </li>
-                        <li role="none">
-                            <a href="register.html" role="menuitem" tabindex="-1">Log In/Sign Up</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <!-- This is practically the bottom green border of the header. Usefully for the gradient.-->
-            <span aria-hidden="true" class="header-border"></span>
-        </header>
         <main>
             <article class="form-container hero-section">
-                <section aria-hidden="true" class="progress-container sign-up disappear">
-                    <h2><label for="progress-bar">Completion:</label></h2>
-                    <progress id="progress-bar" max="100"></progress>
-                    <div class="progress-percentage"></div>
-                </section>
                 <form aria-hidden="true" autocomplete="on" class="form sign-up disappear" id="sign-up-form" method="post">
-                    <button class="sign-up account disappear">Already have an account?</button>
                     <p class="required">
                         <em>
-                            Required fields are marked with the symbol:
+                            Τα απαιτούμενα πεδία είναι μαρκαρισμένα με τον αστερίσκο:
                             <strong><abbr aria-label="Required" title="Required">*</abbr></strong>
                         </em>
                     </p>
                     <section class="personal-info">
-                        <h2>Personal Information</h2>
+                        <h2>Προσωπικές πληροφορίες</h2>
                         <div class="validation-wrapper">
                             <fieldset class="identification">
-                                <legend>Name & Age:</legend>
+                                <legend>Ονοματεπώνυμο & Ηλικία:</legend>
                                 <ul class="list">
                                     <li class="list-item">
                                         <label for="first-name">
-                                            First Name:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Όνομα:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
                                             <input
                                                     autocomplete="given-name"
-                                                    data-pattern-message="Only Greek or Latin characters are allowed in this field."
+                                                    data-pattern-message="Μόνο ελληνικοί ή λατινικοί χαρακτήρες επιτρέπονται σε αυτό το πεδίο."
                                                     id="first-name"
                                                     maxlength="30"
                                                     minlength="2"
                                                     name="first-name"
-                                                    pattern="[A-Za-z]+|[Α-Ωα-ω]+"
-                                                    placeholder="e.g. Bill"
+                                                    pattern="[A-Za-z]+|[Α-Ωα-ωάόύίέώήϊΐϋΰ]+"
+                                                    placeholder="π.χ. Ηλίας"
                                                     required="required"
                                                     type="text"
                                             />
@@ -133,16 +64,16 @@
                                     </li>
                                     <li class="list-item">
                                         <label for="last-name">
-                                            Last Name:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Επίθετο:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
                                             <input
                                                     autocomplete="family-name"
-                                                    data-pattern-message="Only Greek or Latin characters are allowed in this field."
+                                                    data-pattern-message="Μόνο ελληνικοί ή λατινικοί χαρακτήρες επιτρέπονται σε αυτό το πεδίο."
                                                     id="last-name"
                                                     maxlength="30"
                                                     minlength="2"
                                                     name="last-name"
-                                                    pattern="[A-Za-z]+|[Α-Ωα-ω]+"
-                                                    placeholder="e.g. Pullman"
+                                                    pattern="[A-Za-z]+|[Α-Ωα-ωάόύίέώήϊΐϋΰ]+"
+                                                    placeholder="π.χ. Καπαρελιώτης"
                                                     required="required"
                                                     type="text"
                                             />
@@ -155,14 +86,14 @@
                                     </li>
                                     <li class="list-item">
                                         <label for="age">
-                                            Age:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Ηλικία:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
                                             <input
                                                     autocomplete="on"
                                                     id="age"
                                                     max="120"
                                                     min="18"
                                                     name="age"
-                                                    placeholder="e.g. 27"
+                                                    placeholder="π.χ. 27"
                                                     required="required"
                                                     type="number"
                                             />
@@ -183,17 +114,17 @@
                         </div>
                         <div class="validation-wrapper">
                             <fieldset class="address">
-                                <legend>Address:</legend>
+                                <legend>Διεύθυνση:</legend>
                                 <ul class="list">
                                     <li class="list-item">
                                         <label for="country">
-                                            Country:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Χώρα:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
                                             <input
                                                     autocomplete="country-name"
                                                     id="country"
                                                     list="country-list"
                                                     name="country"
-                                                    placeholder="e.g. Greece"
+                                                    placeholder="π.χ. Greece"
                                                     required="required"
                                                     type="text"
                                             />
@@ -458,14 +389,14 @@
                                     </li>
                                     <li class="list-item">
                                         <label for="state">
-                                            State/Province:
+                                            Πολιτεία/νομός:
                                             <input
                                                     autocomplete="address-level1"
                                                     data-pattern-message="Tabs and new lines are not allowed in this field."
                                                     id="state"
                                                     name="state"
                                                     pattern="[^\t^\n^\r]+"
-                                                    placeholder="e.g. Attica"
+                                                    placeholder="π.χ. Attica"
                                                     type="text"
                                                     required="required"
                                             />
@@ -478,14 +409,14 @@
                                     </li>
                                     <li class="list-item">
                                         <label for="city">
-                                            City:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Πόλη:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
                                             <input
                                                     autocomplete="address-level2"
-                                                    data-pattern-message="Tabs and new lines are not allowed in this field."
+                                                    data-pattern-message="Τα κενά, οι κενές γραμμές, και οι χαρακτήρες εισαγωγής δεν επιτρέπονται σε αυτό το πεδίο."
                                                     id="city"
                                                     name="city"
                                                     pattern="[^\t^\n^\r]+"
-                                                    placeholder="e.g. Artemis"
+                                                    placeholder="π.χ. Artemis"
                                                     required="required"
                                                     type="text"
                                             />
@@ -498,13 +429,13 @@
                                     </li>
                                     <li class="list-item">
                                         <label for="zip-code">
-                                            Zip Code:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Ταχυδρομικός Κώδικας:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
                                             <input
                                                     autocomplete="postal-code"
                                                     id="zip-code"
                                                     min="10000"
                                                     name="zip-code"
-                                                    placeholder="e.g. 19016"
+                                                    placeholder="π.χ. 19016"
                                                     required="required"
                                                     type="number"
                                             />
@@ -517,15 +448,15 @@
                                     </li>
                                     <li class="list-item">
                                         <label for="home-address">
-                                            Street Address:<strong><abbr aria-label="Required"
+                                            Οδός:<strong><abbr aria-label="Required"
                                                                          title="Required">*</abbr></strong>
                                             <input
                                                     autocomplete="address-line1"
-                                                    data-pattern-message="Tabs and new lines are not allowed in this field."
+                                                    data-pattern-message="Τα κενά, οι κενές γραμμές, και οι χαρακτήρες εισαγωγής δεν επιτρέπονται σε αυτό το πεδίο."
                                                     id="home-address"
                                                     name="home-address"
                                                     pattern="[^\t^\n^\r]+"
-                                                    placeholder="e.g. Sofokleous"
+                                                    placeholder="π.χ. Σοφοκλέους"
                                                     required="required"
                                                     type="text"
                                             />
@@ -538,14 +469,14 @@
                                     </li>
                                     <li class="list-item">
                                         <label for="home-number">
-                                            Street Number:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Αριθμός:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
                                             <input
                                                     autocomplete="address-line2"
                                                     id="home-number"
                                                     max="10000"
                                                     min="1"
                                                     name="home-number"
-                                                    placeholder="e.g. 46"
+                                                    placeholder="π.χ. 46"
                                                     required="required"
                                                     type="number"
                                             />
@@ -566,20 +497,20 @@
                         </div>
                         <div class="validation-wrapper">
                             <fieldset class="contact-info">
-                                <legend>Contact Information:</legend>
+                                <legend>Στοιχεία επικοινωνίας:</legend>
                                 <ul class="list">
                                     <li class="list-item">
                                         <label for="phone-number">
-                                            Phone Number:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Τηλέφωνο:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
                                             <input
                                                     autocomplete="tel-local"
-                                                    data-pattern-message="Only numeric characters are allowed."
+                                                    data-pattern-message="Μόνο αριθμητικοί χαρακτήρες επιτρέπονται εδώ."
                                                     id="phone-number"
                                                     maxlength="10"
                                                     minlength="10"
                                                     name="phone-number"
                                                     pattern="[0-9]+"
-                                                    placeholder="e.g. 6946007753"
+                                                    placeholder="π.χ. 6946007753"
                                                     required="required"
                                                     type="tel"
                                             />
@@ -592,14 +523,14 @@
                                     </li>
                                     <li class="list-item">
                                         <label for="email">
-                                            Email Address:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Διεύθυνση ηλεκτρονικού Ταχυδρομείου:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
                                             <input
                                                     autocomplete="email"
-                                                    data-pattern-message="Only valid email formats are allowed in this field."
+                                                    data-pattern-message="Μόνο ορθά email επιτρέπονται σε αυτό το πεδίο."
                                                     id="email"
                                                     name="email"
                                                     pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|&quot;(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*&quot;)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"
-                                                    placeholder="e.g. p3180067@aueb.gr"
+                                                    placeholder="π.χ. p3180067@aueb.gr"
                                                     required="required"
                                                     type="email"
                                             />
@@ -620,16 +551,16 @@
                         </div>
                         <div class="validation-wrapper">
                             <fieldset class="credentials">
-                                <legend>Credentials:</legend>
+                                <legend>Συνθηματικά:</legend>
                                 <label for="username">
-                                    Username:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                    <span lang="en">Username:</span><strong><abbr aria-label="Required" title="Required">*</abbr></strong>
                                     <input
                                             autocomplete="username"
-                                            data-pattern-message="Spaces, tabs and new lines are not allowed in this field."
+                                            data-pattern-message="Τα κενά, οι κενές γραμμές, και οι χαρακτήρες εισαγωγής δεν επιτρέπονται σε αυτό το πεδίο."
                                             id="username"
                                             name="username"
                                             pattern="[^ ^\t^\n^\r]+"
-                                            placeholder="e.g. iliaskap11"
+                                            placeholder="π.χ. iliaskap11"
                                             required="required"
                                             type="text"
                                     />
@@ -640,16 +571,16 @@
                                     ></em>
                                 </label>
                                 <label for="password">
-                                    Password(at least 8 characters):<strong><abbr aria-label="Required"
-                                                                                   title="Required">*</abbr></strong>
+                                    Συνθηματικό (Τουλάχιστον: 1 πεζό γράμμα, 1 κεφαλαίο γράμμα, 1 αριθμό, έναν ειδικό χαρακτήρα, και 8 χαρακτήρες μήκος:
+                                    <strong><abbr aria-label="Required" title="Required">*</abbr></strong>
                                     <input
                                             autocomplete="new-password"
-                                            data-pattern-message="You must enter at least one lowercase and uppercase letter, one number, and one special character."
+                                            data-pattern-message="Πρέπει να εισάγετε τουλάχιστον 1 πεζό γράμμα, 1 κεφαλαίο γράμμα, 1 αριθμό, έναν ειδικό χαρακτήρα."
                                             id="password"
                                             minlength="8"
                                             name="password"
                                             pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
-                                            placeholder="e.g. @uc8^^u56%59K"
+                                            placeholder="π.χ. @uc8^^u56%59K"
                                             required="required"
                                             type="password"
                                     />
@@ -660,15 +591,15 @@
                                     ></em>
                                 </label>
                                 <label for="password-confirmation">
-                                    Password Confirmation:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                    Επιβεβαίωση συνθηματικού:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
                                     <input
                                             autocomplete="new-password"
-                                            data-pattern-message="You must enter at least one lowercase and uppercase letter, one number, and one special character."
+                                            data-pattern-message="Πρέπει να εισάγετε τουλάχιστον 1 πεζό γράμμα, 1 κεφαλαίο γράμμα, 1 αριθμό, έναν ειδικό χαρακτήρα."
                                             id="password-confirmation"
                                             minlength="8"
                                             name="password-confirmation"
                                             pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
-                                            placeholder="e.g. @uc8^^u56%59K"
+                                            placeholder="π.χ. @uc8^^u56%59K"
                                             required="required"
                                             type="password"
                                     />
@@ -689,7 +620,7 @@
                     <section class="education">
                         <div class="validation-wrapper">
                             <fieldset class="education" data-required="true" id="education">
-                                <legend>Level of Education:
+                                <legend>Επίπεδο εκπαίδευσης:
                                     <strong><abbr aria-label="Required" title="Required">*</abbr></strong></legend>
                                 <label for="junior-high-school">
                                     <input
@@ -697,8 +628,8 @@
                                             name="education"
                                             required="required"
                                             type="radio"
-                                            value="junior-high-school"
-                                    />Junior High School
+                                            value="Γυμνάσιο"
+                                    />Γυμνάσιο
                                 </label>
                                 <label for="senior-high-school">
                                     <input
@@ -706,8 +637,8 @@
                                             name="education"
                                             required="required"
                                             type="radio"
-                                            value="senior-high-school"
-                                    />Senior High School
+                                            value="Λύκειο"
+                                    />Λύκειο
                                 </label>
                                 <label for="university">
                                     <input
@@ -715,8 +646,8 @@
                                             name="education"
                                             required="required"
                                             type="radio"
-                                            value="university"
-                                    />University
+                                            value="Πανεπιστήμιο"
+                                    />Πανεπιστήμιο
                                 </label>
                                 <label for="bootcamp">
                                     <input
@@ -724,8 +655,8 @@
                                             name="education"
                                             required="required"
                                             type="radio"
-                                            value="bootcamp"
-                                    />Bootcamp
+                                            value="Bootcamp"
+                                    /><span lang="en">Bootcamp</span>
                                 </label>
                                 <label for="self-taught">
                                     <input
@@ -733,8 +664,8 @@
                                             name="education"
                                             required="required"
                                             type="radio"
-                                            value="self-taught"
-                                    />Self-taught
+                                            value="Αυτοδίδακτος"
+                                    />Αυτοδίδακτος
                                 </label>
                             </fieldset>
                             <em
@@ -745,124 +676,10 @@
                         </div>
                     </section>
                     <div class="submit">
-                        <button class="btn" id="sign-up" type="submit">Sign Up</button>
+                        <button class="btn secondary-button" id="sign-up" type="submit">Εγγραφή</button>
                     </div>
                 </form>
             </article>
         </main>
-        <footer>
-            <div class="link-wrapper">
-                <div>
-                    <article class="links">
-                        <h2 class="heading">Useful links</h2>
-                        <ul class="useful-links">
-                            <li><a href="register.html">Join for free</a></li>
-                            <li><a href="contact.html">Contact us</a></li>
-                            <li><a href="about.html">About us</a></li>
-                            <li><a href="sitemap.html">Sitemap</a></li>
-                        </ul>
-                    </article>
-                    <article class="links">
-                        <h2 class="heading">Explore our content</h2>
-                        <ul class="content">
-                            <li><a href="fields/computer-science/computer-science.html">Computer Science</a></li>
-                            <li><a href="fields/chemistry/chemistry.html">Chemistry</a></li>
-                            <li><a href="fields/economics/economics.html">Economics</a></li>
-                            <li><a href="fields/mathematics/mathematics.html">Mathematics</a></li>
-                        </ul>
-                    </article>
-                </div>
-            </div>
-            <article>
-                <ul class="social-media">
-                    <li>
-                        <a class="btn" href="https://www.facebook.com/" rel="noreferrer noopener" target="_blank">
-                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                <path d="M10,0.5c-5.247,0-9.5,4.253-9.5,9.5c0,5.247,4.253,9.5,9.5,9.5c5.247
-                                                    ,0,9.5-4.253,9.5-9.5C19.5,4.753,15.247,0.5,10,0.5 M10,18.637c-4.77,
-                                                    0-8.636-3.867-8.636-8.637S5.23,1.364,10,1.364S18.637,5.23,18.637,10S14.77,
-                                                    18.637,10,18.637 M10.858,7.949c0-0.349,0.036-0.536,0.573-0.536h0.719v-1.3H11c-1.38,
-                                                    0-1.866,0.65-1.866,1.743v0.845h-0.86V10h0.86v3.887h1.723V10h1.149l0.152-1.299h-1.302L10.858,7.949z"
-                                      fill="none">
-                                </path>
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="btn" href="https://www.instagram.com/" rel="noreferrer noopener" target="_blank">
-                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                <path d="M9.969,0.594c-5.195,0-9.406,4.211-9.406,9.406c0,5.195,4.211,
-                                                    9.406,9.406,9.406c5.195,0,9.406-4.211,9.406-9.406C19.375,4.805,15.164,0.594,9.969,
-                                                    0.594 M9.969,18.552c-4.723,0-8.551-3.829-8.551-8.552s3.829-8.551,8.551-8.551S18.521,
-                                                    5.277,18.521,10S14.691,18.552,9.969,18.552 M12.534,5.724H7.403c-0.944,0-1.71,
-                                                    0.766-1.71,1.71v5.131c0,0.944,0.766,1.71,1.71,1.71h5.131c0.944,0,1.71-0.766,
-                                                    1.71-1.71V7.435C14.244,6.49,13.479,5.724,12.534,5.724M11.679,
-                                                    7.007h1.283V8.29h-1.283V7.007z M9.969,8.29c0.944,0,1.71,0.766,1.71,1.71s-0.766,
-                                                    1.71-1.71,1.71s-1.71-0.766-1.71-1.71S9.024,8.29,9.969,8.29 M13.39,12.565c0,0.472-0.384,0.854-0.855,
-                                                    0.854H7.403c-0.472,0-0.855-0.383-0.855-0.854V9.573h0.898C7.423,9.712,7.403,9.854,7.403,10c0,1.417,
-                                                    1.149,2.565,2.565,2.565c1.416,0,2.565-1.148,2.565-2.565c0-0.146-0.02-0.288-0.043-0.427h0.898V12.565z"
-                                      fill="none">
-                                </path>
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="btn" href="https://twitter.com/" rel="noreferrer noopener" target="_blank">
-                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                <path d="M14.467,6.707c-0.34,0.198-0.715,0.342-1.115,0.419c-0.318-0.335-0.775-0.545-1.279-0.545c-0.969
-                                                    ,0-1.754,0.773-1.754,1.727c0,0.135,0.015,0.267,0.045,0.394C8.905,8.628,7.612,7.94,6.747,
-                                                    6.896C6.596,7.151,6.509,7.448,6.509,7.764c0,0.599,0.31,1.128,0.78,1.438C7.002,9.192,6.732,9.115,
-                                                    6.495,8.985c0,0.007,0,0.014,0,0.021c0,0.837,0.605,1.535,1.408,1.694c-0.147,0.04-0.302,0.06-0.462,
-                                                    0.06c-0.113,0-0.223-0.011-0.33-0.031c0.223,0.687,0.871,1.186,1.638,1.199c-0.6,0.464-1.356,
-                                                    0.739-2.179,0.739c-0.142,0-0.281-0.007-0.418-0.023c0.777,0.489,1.699,0.775,2.689,0.775c3.228,0,
-                                                    4.991-2.63,4.991-4.913c0-0.075-0.002-0.149-0.004-0.223c0.342-0.244,0.639-0.547,0.875-0.894c-0.316,
-                                                    0.137-0.652,0.23-1.008,0.272C14.057,7.448,14.336,7.11,14.467,6.707 M10,0.594c-5.195,0-9.406,
-                                                    4.211-9.406,9.406c0,5.195,4.211,9.406,9.406,9.406c5.196,0,9.407-4.211,9.407-9.406C19.406,4.805,
-                                                    15.195,0.594,10,0.594 M10,18.552c-4.723,0-8.551-3.829-8.551-8.552S5.277,1.449,10,1.449c4.723,0,8.551,
-                                                    3.829,8.551,8.551S14.723,18.552,10,18.552" fill="none">
-                                </path>
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-            </article>
-            <article class="copyright">
-                <h3>Made with </h3><span aria-label="love" id="icon-container" title="love"></span>
-                <div class="license-container">
-                    <small>, licensed under the <abbr title="Michigan Institute of Technology">MIT</abbr> license</small>
-                </div>
-            </article>
-        </footer>
-        <script src="index.js" type="module"></script>
-        <script src="header-offset.js"></script>
-        <script type="module">
-            import lottieWeb from 'https://cdn.skypack.dev/lottie-web';
-            
-            const container = document.getElementById('icon-container');
-            let state = 'play';
-            
-            const animation = lottieWeb.loadAnimation({
-                // animationData: { /* ... */ },
-                container: document.getElementById('icon-container'), // required
-                path: '/heart.json', // required
-                renderer: 'svg', // required
-                loop: false, // optional
-                autoplay: false, // optional
-                name: "Demo Animation", // optional
-            });
-            
-            animation.goToAndStop(0, true);
-            
-            container.addEventListener('click', () => {
-                if (state === 'play') {
-                    animation.playSegments([0, 10], true);
-                    state = 'pause';
-                } else {
-                    animation.playSegments([10, 0], true);
-                    state = 'play';
-                }
-            });
-        
-        </script>
     </body>
 </html>

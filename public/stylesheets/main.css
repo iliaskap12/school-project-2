@@ -5,7 +5,7 @@
     Relative positioning to absolute place children elements. Inline-flex display to have flex flow within but make the
     link (box) retain its inline functionality and not span entire row.
     Text decoration to remove underline.
-    Perspective to give an angle (perspective) while the link rotates to make the 3D effect slightly more realistic.
+    Perspective to give an angle (perspective) while the link rotateXs to make the 3D effect slightly more realistic.
 */
 .btn.cta-link {
     position: relative;
@@ -43,7 +43,7 @@
 }
 
 /*
-    On link hover, rotate the button 90 degrees to show its bottom side.
+    On link hover, rotateX the button 90 degrees to show its bottom side.
 */
 .cta-link:hover .link-3d-wrapper,
 .cta-link:active .link-3d-wrapper,
