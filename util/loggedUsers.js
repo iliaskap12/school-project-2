@@ -8,7 +8,12 @@ function removeUser (id) {
   users.delete(id);
 }
 
+function isLogged (id, token) {
+  return users.get(id) && users.get(id) === token;
+}
+
 module.exports = {
-  addUser,
-  removeUser
+  addUser: addUser,
+  removeUser: removeUser,
+  isLogged: isLogged
 };

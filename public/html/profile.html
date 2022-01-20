@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr" lang="en-us">
     <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>Sign Up</title>
+        <link rel="preconnect" href="https://elearning-aueb.herokuapp.com/" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="preload" href="profile.js" as="script" crossOrigin="anonymous">
+        <meta content="SEO description <!--TODO" name="description"/>
+        <meta content="#FA5FC1ff" name="theme-color"/>
+        <link href="base.css" rel="stylesheet"/>
+        <link href="normalize.css" rel="stylesheet"/>
+        <link href="header.css" rel="stylesheet"/>
+        <link href="main.css" rel="stylesheet"/>
+        <link href="footer.css" rel="stylesheet"/>
+        <link href="layout.css" rel="stylesheet"/>
+        <link href="register.css" rel="stylesheet"/>
+        <link href="small-tablet.css" media="screen and (min-width: 30em) and (max-width: 48em)" rel="stylesheet"/>
+        <link href="tablet.css" media="screen and (min-width: 48em) and (max-width: 67.5em)" rel="stylesheet"/>
+        <link href="small-desktop.css" media="screen and (min-width: 67.5em) and (max-width: 90em)" rel="stylesheet"/>
+        <link href="desktop.css" media="screen and (min-width: 90em)" rel="stylesheet"/>
+        <script src="profile.js"></script>
     </head>
     <body>
-    
+        <main>
+            <article class="form-container hero-section">
+                <h2>Log In</h2>
+                <form autocomplete="on" class="form login" id="login-form">
+                    <label for="username">
+                        Username:
+                        <input
+                                autocomplete="username"
+                                id="username"
+                                name="username"
+                                placeholder="e.g. iliaskap11"
+                                required="required"
+                                type="text"
+                        />
+                        <em
+                                aria-describedby="error-for-username"
+                                aria-hidden="true"
+                                class="validation-error"
+                        ></em>
+                    </label>
+                    <label for="password">
+                        Password:
+                        <input
+                                autocomplete="current-password"
+                                id="password"
+                                name="password"
+                                placeholder="e.g. @uc8^^u56%59K"
+                                required="required"
+                                type="password"
+                        />
+                        <em
+                                aria-describedby="error-for-password"
+                                aria-hidden="true"
+                                class="validation-error"
+                        ></em>
+                    </label>
+                    <button id="login" type="submit">Log In</button>
+                </form>
+            </article>
+        </main>
     </body>
 </html>

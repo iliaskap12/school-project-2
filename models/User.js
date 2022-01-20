@@ -53,6 +53,23 @@ class User {
     return bcrypt.hashSync(`${id}`, bcrypt.genSaltSync(10));
   }
 
+  static async login (username, password) {
+    const result = await User.search({ 'account.username': username }, false);
+    let returnVal = { success: false, data: 'Username or password incorrect.' };
+    if (
+      result.found &&
+      bcrypt.compareSync(password, result.data.account.password)
+    ) {
+      result.data._security = { _id: null, _token: null };
+      result.data._security._token = User.generateToken(
+        result.data._id.toString()
+      );
+      result.data._security._id = result.data._id.toString();
+      returnVal = { success: true, data: result.data };
+    }
+    return returnVal;
+  }
+
   static async createUser (userData) {
     try {
       const user = new User(userData);

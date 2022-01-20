@@ -20,7 +20,7 @@
         <link href="tablet.css" media="screen and (min-width: 48em) and (max-width: 67.5em)" rel="stylesheet"/>
         <link href="small-desktop.css" media="screen and (min-width: 67.5em) and (max-width: 90em)" rel="stylesheet"/>
         <link href="desktop.css" media="screen and (min-width: 90em)" rel="stylesheet"/>
-        <script src="register.js"></script>
+        <script src="register.js" type="module"></script>
     </head>
     <body>
         <header>
@@ -640,15 +640,15 @@
                                     ></em>
                                 </label>
                                 <label for="password">
-                                    Password(at least 12 characters):<strong><abbr aria-label="Required"
+                                    Password(at least 8 characters):<strong><abbr aria-label="Required"
                                                                                    title="Required">*</abbr></strong>
                                     <input
                                             autocomplete="new-password"
-                                            data-pattern-message="Tabs and new lines are not allowed in this field."
+                                            data-pattern-message="You must enter at least one lowercase and uppercase letter, one number, and one special character."
                                             id="password"
-                                            minlength="12"
+                                            minlength="8"
                                             name="password"
-                                            pattern="[^\t^\n^\r]+"
+                                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
                                             placeholder="e.g. @uc8^^u56%59K"
                                             required="required"
                                             type="password"
@@ -663,11 +663,11 @@
                                     Password Confirmation:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
                                     <input
                                             autocomplete="new-password"
-                                            data-pattern-message="Tabs and new lines are not allowed in this field."
+                                            data-pattern-message="You must enter at least one lowercase and uppercase letter, one number, and one special character."
                                             id="password-confirmation"
-                                            minlength="12"
+                                            minlength="8"
                                             name="password-confirmation"
-                                            pattern="[^\t^\n^\r]+"
+                                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
                                             placeholder="e.g. @uc8^^u56%59K"
                                             required="required"
                                             type="password"

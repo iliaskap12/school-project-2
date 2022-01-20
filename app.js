@@ -22,6 +22,7 @@ const usersRouter = require(path.join(__dirname, 'routes', 'user'));
 const coursesRouter = require(path.join(__dirname, 'routes', 'courses'));
 const registerRouter = require(path.join(__dirname, 'routes', 'register'));
 const thanksRouter = require(path.join(__dirname, 'routes', 'thanks'));
+const profileRouter = require(path.join(__dirname, 'routes', 'profile'));
 const auebRouter = require(path.join(
   __dirname,
   'routes',
@@ -32,6 +33,7 @@ app.use(auebRouter);
 app.use(coursesRouter);
 app.use(registerRouter);
 app.use(thanksRouter);
+app.use(profileRouter);
 app.use('/hbs', handlebarsRouter);
 app.use(indexRouter);
 // app.use('/users', usersRouter);

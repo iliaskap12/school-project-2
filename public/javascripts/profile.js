@@ -1,110 +1,3 @@
-'use strict';
-
-window.addEventListener('DOMContentLoaded', () => {
-  const signupForm = new Form('sign-up-form', onSubmit);
-});
-
-/*
- * custom required (data-required)
- * custom exact number (data-min === data-max)
- * custom range (data-min, data-max)
- * password strength (length, pattern)
- * password match
- * required (valueMissing)
- * type match (typeMismatch, badInput)
- * length (tooShort, tooLong)
- * range (rangeUnderflow, rangeOverflow) / (min, max)
- * stepMismatch
- * patternMismatch (data-pattern-message)
- * customError
- * */
-
-function formatData (element) {
-  const data = Object.fromEntries(new FormData(element).entries());
-  return {
-    address: {
-      country: data.country,
-      state: data.state,
-      city: data.city,
-      zip: data['zip-code'],
-      street: data['home-address'],
-      number: data['home-number']
-    },
-    account: {
-      password: data.password,
-      username: data.username
-    },
-    info: {
-      name: {
-        first: data['first-name'],
-        last: data['last-name']
-      },
-      age: data.age,
-      email: data.email,
-      phone: data['phone-number'],
-      education: data.education
-    }
-  };
-}
-
-function onSuccess (response, userData) {
-  window.sessionStorage.setItem('_id', response.security._id);
-  window.sessionStorage.setItem('_token', response.security._token);
-  window.sessionStorage.setItem('username', `${userData.account.username}`);
-  window.location.href = '/thanks';
-}
-
-function onError (response, userData) {
-  const error = document.createElement('section');
-  error.id = 'registration-failure';
-  error.classList.add('error', 'fail');
-  const errorMessage = document.createElement('em');
-  if (response.error.email) {
-    errorMessage.textContent = `Email: ${
-      userData.info.email
-    } is already in use.`;
-  } else {
-    errorMessage.textContent = `Username: ${
-      userData.account.username
-    } is already in use.`;
-  }
-  const closeBtnContainer = document.createElement('div');
-  const close = document.createElement('button');
-  close.textContent = 'Close';
-  close.addEventListener('click', () => {
-    const errorBox = document.getElementById('registration-failure');
-    errorBox.remove();
-  });
-  error.appendChild(errorMessage);
-  closeBtnContainer.appendChild(close);
-  error.appendChild(closeBtnContainer);
-  document.body.appendChild(error);
-}
-
-async function register (userData) {
-  try {
-    const response = await fetch('/register', {
-      method: 'post',
-      body: JSON.stringify({ data: userData }),
-      redirect: 'follow',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    const json = await response.json();
-    if (!json.error) {
-      onSuccess(json, userData);
-    } else {
-      onError(json, userData);
-    }
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-function onSubmit (element) {
-  const userData = formatData(element);
-  register(userData).catch(e => console.error(e));
-}
-
 function CustomRestrictions () {
   this.required = null;
   this.min = null;
@@ -640,8 +533,105 @@ class Error {
         }
       }
     } catch (exception) {
-      // console.log(this.#_element)
       console.error(exception + '\nNo validation placeholder found.');
     }
   }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const form = new Form('login-form', onSubmit);
+});
+
+function formatData (element) {
+  return Object.fromEntries(new FormData(element).entries());
+}
+
+function onLoginSuccess (response, userData) {
+  window.sessionStorage.setItem('_id', userData._security._id);
+  window.sessionStorage.setItem('_token', userData._security._token);
+}
+
+function onError (response, userData) {
+  const error = document.createElement('section');
+  error.id = 'login-failure';
+  error.classList.add('error', 'fail');
+  const errorMessage = document.createElement('em');
+  errorMessage.textContent = userData;
+  const closeBtnContainer = document.createElement('div');
+  const close = document.createElement('button');
+  close.textContent = 'Close';
+  close.addEventListener('click', () => {
+    const errorBox = document.getElementById('login-failure');
+    errorBox.remove();
+  });
+  error.appendChild(errorMessage);
+  closeBtnContainer.appendChild(close);
+  error.appendChild(closeBtnContainer);
+  document.body.appendChild(error);
+}
+
+async function login (userData) {
+  try {
+    const response = await fetch('/profile', {
+      method: 'post',
+      body: JSON.stringify({ data: userData }),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    const json = await response.json();
+    if (json.result.success) {
+      onLoginSuccess(json, json.result.data);
+    } else {
+      onError(json, json.result.data);
+    }
+    return json.result.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function getProfile (userData) {
+  try {
+    const response = await fetch('/get-profile', {
+      method: 'post',
+      body: JSON.stringify({ data: userData }),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    const json = await response.json();
+    console.log(json);
+    if (json.result.success) {
+      render(json.result.data.data).catch(e => console.error(e));
+    } else {
+      onError(json, json.result.data);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function onSubmit (element) {
+  const userData = formatData(element);
+  try {
+    const loginResult = await login(userData);
+    if (loginResult) {
+      getProfile(loginResult)
+        .then(res => console.log(res))
+        .catch(e => console.error(e));
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function render (profile) {
+  const profileHbs = await fetch('/hbs/profile');
+  const profileText = await profileHbs.text();
+  const parser = new DOMParser();
+  const template = Handlebars.compile(profileText);
+  const templateData = {
+    profile: profile
+  };
+  document.body.appendChild(
+    parser.parseFromString(template(templateData), 'text/html').body
+      .firstElementChild
+  );
 }

@@ -75,7 +75,6 @@ async function render (courses) {
   const templateData = {
     courses: courses
   };
-  console.log(templateData);
   document.body.appendChild(
     parser.parseFromString(template(templateData), 'text/html').body
   );

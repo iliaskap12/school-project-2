@@ -26,6 +26,6 @@ router.get('/courses', handlebarsControllers.coursesHbs);
 router.get('/thanks', handlebarsControllers.thanks);
 router.get('/register', handlebarsControllers.registerUser);
 router.get('/login', handlebarsControllers.login);
-router.get('/profile:id', handlebarsControllers.userProfile);
+router.get('/profile', handlebarsControllers.userProfile);
 
 module.exports = router;
