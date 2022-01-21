@@ -1,17 +1,4 @@
-import { getCategories, handleError } from './categories.js';
-
-async function getCategoryTitle (categoryId) {
-  const categories = await getCategories();
-  if (handleError(categories)) {
-    return { title: '' };
-  }
-  for (const category of categories.categories) {
-    if (parseInt(categoryId) === parseInt(category.id)) {
-      return category.title;
-    }
-  }
-  return { title: '' };
-}
+import { getCategoryTitle, handleError } from '/categories';
 
 async function getCourses () {
   const courses = {
@@ -71,12 +58,12 @@ async function render (courses) {
     courses: courses
   };
   if (!templateData) return;
-  document
-    .getElementById('results')
-    .appendChild(
-      parser.parseFromString(template(templateData), 'text/html').body
-        .firstElementChild
-    );
+  const results = document.getElementById('results');
+  results.innerHTML = '';
+  results.appendChild(
+    parser.parseFromString(template(templateData), 'text/html').body
+      .firstElementChild
+  );
 }
 
 async function searchCourses () {

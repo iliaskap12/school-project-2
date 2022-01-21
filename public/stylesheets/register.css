@@ -21,17 +21,26 @@
 }
 
 #progress-bar {
-    flex: 1 0 auto;
+    flex: 1 0 0;
 }
 
 .progress-percentage {
     flex-basis: 15%;
 }
 
+main {
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+}
+
 /* Forms */
 .form {
     width: max(240px, 100%);
     margin: 0 auto;
+}
+
+.form:not(.login) {
+    margin: 200px auto 0;
 }
 
 /* Buttons */
@@ -114,6 +123,7 @@ legend {
     justify-content: space-evenly;
     column-gap: 2em;
     row-gap: 0.8em;
+    align-items: flex-end;
 }
 
 .form-container .list-item {
@@ -121,7 +131,8 @@ legend {
 }
 
 .personal-info .list-item {
-    flex: 0 1 auto;
+    flex: 1 1 0;
+    min-width: 40%;
 }
 
 /* Inputs & Labels */
@@ -228,7 +239,7 @@ label[for="other"] {
 }
 
 label[for="other"] input {
-    flex: 1 0 auto;
+    flex: 1 0 0;
 }
 
 label[for="open-source"] {
@@ -245,12 +256,19 @@ label[for="open-source"] {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
+    align-items: flex-end;
     column-gap: 2em;
     row-gap: 1em;
 }
 
-.credentials label[for="username"], .button-container {
-    flex: 1 0 100%;
+.credentials label {
+    width: 100%;
+    min-width: 60%;
+    flex: 1 1 0;
+}
+
+.button-container {
+    flex: 1 1 0;
 }
 
 /* Log in */
@@ -265,8 +283,9 @@ label[for="open-source"] {
 }
 
 .login label:not([for="signed-in"]) {
-    flex: 0 1 auto;
+    flex: 1 1 0;
     margin: 0 1.5em;
+    min-width: 90%;
 }
 
 .login label[for="signed-in"] {
@@ -331,7 +350,7 @@ label.error {
 }
 
 .error.fail em {
-    font-size: 2rem;
+    font-size: 28px;
     color: var(--error-color);
 }
 
@@ -343,6 +362,7 @@ label.error {
 
 section.education {
     padding-top: 0;
+    width: 100%;
 }
 
 section.personal-info {
@@ -364,19 +384,16 @@ section.personal-info {
 
 section label {
     margin: 1em auto;
+    max-width: 100%;
 }
 
 @media only screen and (min-width: 30em) {
     .personal-info .list-item {
-        flex: 1 0 auto;
-    }
-
-    .credentials label {
-        flex: 1 0 auto;
+        flex: 1 0 0;
     }
 
     .login label:not([for="signed-in"]) {
-        flex: 0 1 100%;
+        flex: 0 1 0;
     }
 }
 

@@ -50,10 +50,22 @@
                 color: var(--complimentary-color);
                 text-decoration: underline dashed;
             }
+            
+            section {
+                padding: 1em 0;
+            }
+            
+            main {
+                margin-top: 200px;
+            }
+            
+            #main .btn.cta-link {
+                margin-top: 30px;
+            }
         </style>
     </head>
     <body>
-        <main id="main" class="hero-section">
+        <main id="main">
             <section id="account">
                 <button id="register" class="btn secondary-button">Εγγραφή</button>
                 <button id="profile" class="btn secondary-button">Profile</button>
@@ -76,7 +88,6 @@
             </section>
         </main>
     </body>
-    <script src="categories.js" type="module"></script>
     <script src="search.js" type="module"></script>
     <script>
         document.getElementById("register").addEventListener("click", () => {

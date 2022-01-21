@@ -1,17 +1,4 @@
-import { getCategories, handleError } from './categories.js';
-
-async function getCategoryTitle (categoryId) {
-  const categories = await getCategories();
-  if (handleError(categories)) {
-    return { title: '' };
-  }
-  for (const category of categories.categories) {
-    if (parseInt(categoryId) === parseInt(category.id)) {
-      return category.title;
-    }
-  }
-  return { title: '' };
-}
+import { getCategoryTitle, handleError } from '/categories';
 
 async function getCourses () {
   const urlParams = new URLSearchParams(window.location.search);

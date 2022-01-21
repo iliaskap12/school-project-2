@@ -55,7 +55,10 @@ class User {
 
   static async login (username, password) {
     const result = await User.search({ 'account.username': username }, false);
-    let returnVal = { success: false, data: 'Username or password incorrect.' };
+    let returnVal = {
+      success: false,
+      data: 'Το username ή το συνθηματικό είναι λάθος.'
+    };
     if (
       result.found &&
       bcrypt.compareSync(password, result.data.account.password)

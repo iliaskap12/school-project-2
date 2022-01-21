@@ -31,6 +31,19 @@ async function getCategories () {
   }
 }
 
+async function getCategoryTitle (categoryId) {
+  const categories = await getCategories();
+  if (handleError(categories)) {
+    return { title: '' };
+  }
+  for (const category of categories.categories) {
+    if (parseInt(categoryId) === parseInt(category.id)) {
+      return category.title;
+    }
+  }
+  return { title: '' };
+}
+
 async function render (categories) {
   const menuHbs = await fetch('/hbs/menu');
   const menuText = await menuHbs.text();
@@ -79,4 +92,4 @@ function handleError (obj) {
   return false;
 }
 
-export { getCategories, handleError };
+export { getCategoryTitle, handleError };

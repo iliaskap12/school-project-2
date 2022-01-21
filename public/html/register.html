@@ -26,12 +26,12 @@
     </head>
     <body>
         <main>
-            <article class="form-container hero-section">
+            <article class="form-container">
                 <form aria-hidden="true" autocomplete="on" class="form sign-up disappear" id="sign-up-form" method="post">
                     <p class="required">
                         <em>
                             Τα απαιτούμενα πεδία είναι μαρκαρισμένα με τον αστερίσκο:
-                            <strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                            <strong><abbr aria-label="Υποχρεωτικό" title="Υποχρεωτικό">*</abbr></strong>
                         </em>
                     </p>
                     <section class="personal-info">
@@ -42,7 +42,7 @@
                                 <ul class="list">
                                     <li class="list-item">
                                         <label for="first-name">
-                                            Όνομα:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Όνομα:<strong><abbr aria-label="Υποχρεωτικό" title="Υποχρεωτικό">*</abbr></strong>
                                             <input
                                                     autocomplete="given-name"
                                                     data-pattern-message="Μόνο ελληνικοί ή λατινικοί χαρακτήρες επιτρέπονται σε αυτό το πεδίο."
@@ -64,7 +64,7 @@
                                     </li>
                                     <li class="list-item">
                                         <label for="last-name">
-                                            Επίθετο:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Επίθετο:<strong><abbr aria-label="Υποχρεωτικό" title="Υποχρεωτικό">*</abbr></strong>
                                             <input
                                                     autocomplete="family-name"
                                                     data-pattern-message="Μόνο ελληνικοί ή λατινικοί χαρακτήρες επιτρέπονται σε αυτό το πεδίο."
@@ -86,7 +86,7 @@
                                     </li>
                                     <li class="list-item">
                                         <label for="age">
-                                            Ηλικία:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Ηλικία:<strong><abbr aria-label="Υποχρεωτικό" title="Υποχρεωτικό">*</abbr></strong>
                                             <input
                                                     autocomplete="on"
                                                     id="age"
@@ -118,7 +118,7 @@
                                 <ul class="list">
                                     <li class="list-item">
                                         <label for="country">
-                                            Χώρα:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Χώρα:<strong><abbr aria-label="Υποχρεωτικό" title="Υποχρεωτικό">*</abbr></strong>
                                             <input
                                                     autocomplete="country-name"
                                                     id="country"
@@ -392,11 +392,11 @@
                                             Πολιτεία/νομός:
                                             <input
                                                     autocomplete="address-level1"
-                                                    data-pattern-message="Tabs and new lines are not allowed in this field."
+                                                    data-pattern-message="Τα κενά, οι καινούργιες γραμμές, και οι χαρακτήρες εισαγωγής δεν επιτρέπονται σε αυτό το πεδίο."
                                                     id="state"
                                                     name="state"
                                                     pattern="[^\t^\n^\r]+"
-                                                    placeholder="π.χ. Attica"
+                                                    placeholder="π.χ. Αττική"
                                                     type="text"
                                                     required="required"
                                             />
@@ -409,14 +409,14 @@
                                     </li>
                                     <li class="list-item">
                                         <label for="city">
-                                            Πόλη:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Πόλη:<strong><abbr aria-label="Υποχρεωτικό" title="Υποχρεωτικό">*</abbr></strong>
                                             <input
                                                     autocomplete="address-level2"
                                                     data-pattern-message="Τα κενά, οι κενές γραμμές, και οι χαρακτήρες εισαγωγής δεν επιτρέπονται σε αυτό το πεδίο."
                                                     id="city"
                                                     name="city"
                                                     pattern="[^\t^\n^\r]+"
-                                                    placeholder="π.χ. Artemis"
+                                                    placeholder="π.χ. Αρτέμιδα"
                                                     required="required"
                                                     type="text"
                                             />
@@ -429,7 +429,7 @@
                                     </li>
                                     <li class="list-item">
                                         <label for="zip-code">
-                                            Ταχυδρομικός Κώδικας:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Ταχυδρομικός Κώδικας:<strong><abbr aria-label="Υποχρεωτικό" title="Υποχρεωτικό">*</abbr></strong>
                                             <input
                                                     autocomplete="postal-code"
                                                     id="zip-code"
@@ -469,7 +469,7 @@
                                     </li>
                                     <li class="list-item">
                                         <label for="home-number">
-                                            Αριθμός:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Αριθμός:<strong><abbr aria-label="Υποχρεωτικό" title="Υποχρεωτικό">*</abbr></strong>
                                             <input
                                                     autocomplete="address-line2"
                                                     id="home-number"
@@ -501,7 +501,7 @@
                                 <ul class="list">
                                     <li class="list-item">
                                         <label for="phone-number">
-                                            Τηλέφωνο:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Τηλέφωνο:<strong><abbr aria-label="Υποχρεωτικό" title="Υποχρεωτικό">*</abbr></strong>
                                             <input
                                                     autocomplete="tel-local"
                                                     data-pattern-message="Μόνο αριθμητικοί χαρακτήρες επιτρέπονται εδώ."
@@ -523,7 +523,7 @@
                                     </li>
                                     <li class="list-item">
                                         <label for="email">
-                                            Διεύθυνση ηλεκτρονικού Ταχυδρομείου:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                            Διεύθυνση ηλεκτρονικού Ταχυδρομείου:<strong><abbr aria-label="Υποχρεωτικό" title="Υποχρεωτικό">*</abbr></strong>
                                             <input
                                                     autocomplete="email"
                                                     data-pattern-message="Μόνο ορθά email επιτρέπονται σε αυτό το πεδίο."
@@ -553,7 +553,7 @@
                             <fieldset class="credentials">
                                 <legend>Συνθηματικά:</legend>
                                 <label for="username">
-                                    <span lang="en">Username:</span><strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                    <span lang="en">Username:</span><strong><abbr aria-label="Υποχρεωτικό" title="Υποχρεωτικό">*</abbr></strong>
                                     <input
                                             autocomplete="username"
                                             data-pattern-message="Τα κενά, οι κενές γραμμές, και οι χαρακτήρες εισαγωγής δεν επιτρέπονται σε αυτό το πεδίο."
@@ -571,8 +571,8 @@
                                     ></em>
                                 </label>
                                 <label for="password">
-                                    Συνθηματικό (Τουλάχιστον: 1 πεζό γράμμα, 1 κεφαλαίο γράμμα, 1 αριθμό, έναν ειδικό χαρακτήρα, και 8 χαρακτήρες μήκος:
-                                    <strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                    Συνθηματικό (1 πεζό, 1 κεφαλαίο, 1 αριθμό, 1 ειδικό χαρακτήρα, και 8 χαρακτήρες μήκος):
+                                    <strong><abbr aria-label="Υποχρεωτικό" title="Υποχρεωτικό">*</abbr></strong>
                                     <input
                                             autocomplete="new-password"
                                             data-pattern-message="Πρέπει να εισάγετε τουλάχιστον 1 πεζό γράμμα, 1 κεφαλαίο γράμμα, 1 αριθμό, έναν ειδικό χαρακτήρα."
@@ -591,7 +591,7 @@
                                     ></em>
                                 </label>
                                 <label for="password-confirmation">
-                                    Επιβεβαίωση συνθηματικού:<strong><abbr aria-label="Required" title="Required">*</abbr></strong>
+                                    Επιβεβαίωση συνθηματικού:<strong><abbr aria-label="Υποχρεωτικό" title="Υποχρεωτικό">*</abbr></strong>
                                     <input
                                             autocomplete="new-password"
                                             data-pattern-message="Πρέπει να εισάγετε τουλάχιστον 1 πεζό γράμμα, 1 κεφαλαίο γράμμα, 1 αριθμό, έναν ειδικό χαρακτήρα."
@@ -621,7 +621,7 @@
                         <div class="validation-wrapper">
                             <fieldset class="education" data-required="true" id="education">
                                 <legend>Επίπεδο εκπαίδευσης:
-                                    <strong><abbr aria-label="Required" title="Required">*</abbr></strong></legend>
+                                    <strong><abbr aria-label="Υποχρεωτικό" title="Υποχρεωτικό">*</abbr></strong></legend>
                                 <label for="junior-high-school">
                                     <input
                                             id="junior-high-school"

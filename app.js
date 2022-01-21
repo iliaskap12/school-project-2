@@ -16,6 +16,7 @@ const errorController = require(path.join(__dirname, 'controllers', 'error'));
 const mongoConnect = require('./util/database').mongoConnect;
 
 const handlebarsRouter = require(path.join(__dirname, 'routes', 'handlebars'));
+const jsfilesRouter = require(path.join(__dirname, 'routes', 'jsfiles'));
 const indexRouter = require(path.join(__dirname, 'routes', 'index'));
 const coursesRouter = require(path.join(__dirname, 'routes', 'courses'));
 const registerRouter = require(path.join(__dirname, 'routes', 'register'));
@@ -32,6 +33,7 @@ app.use(coursesRouter);
 app.use(registerRouter);
 app.use(thanksRouter);
 app.use(profileRouter);
+app.use(jsfilesRouter);
 app.use('/hbs', handlebarsRouter);
 app.use(indexRouter);
 app.use(errorController.get404);

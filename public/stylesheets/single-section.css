@@ -1,0 +1,20 @@
+.main .btn {
+    width: fit-content;
+    margin: auto;
+    font-size: 1.3em;
+}
+
+
+main {
+    width: calc(100vw - 16px);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    min-width: 300px;
+    width: 70%;
+    text-align: center;
+}
