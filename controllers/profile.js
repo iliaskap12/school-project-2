@@ -1,7 +1,6 @@
 const path = require('path');
 const root = require(path.join('..', 'util', 'path'));
 const User = require(path.join(root, 'models', 'User'));
-const users = require(path.join(root, 'util', 'loggedUsers'));
 const mongodb = require('mongodb');
 
 const ObjectId = mongodb.ObjectId;
@@ -15,23 +14,20 @@ async function getProfile (req, res, next) {
     if (
       req.body &&
       req.body.data &&
-      req.body.data._security &&
-      req.body.data._security._token &&
-      req.body.data._security._id
+      req.body.data.user &&
+      req.body.data.user._id &&
+      req.body.data.sessionId
     ) {
-      if (
-        users.isLogged(
-          req.body.data._security._id,
-          req.body.data._security._token
-        )
-      ) {
+      const result = await User.search(
+        { _id: new ObjectId(req.body.data.user._id) },
+        { many: false }
+      );
+      console.log(result.data);
+      if (await User.isLoggedIn(req.body.data.sessionId)) {
         res.status(200).json({
           result: {
             success: true,
-            data: await User.search(
-              { _id: new ObjectId(req.body.data._id) },
-              { many: false }
-            )
+            data: result.data
           }
         });
       } else {
@@ -60,7 +56,7 @@ async function login (req, res, next) {
   ) {
     res
       .status(400)
-      .json({ result: { success: false, data: 'Missing information' } });
+      .json({ result: { success: false, data: 'Ελλιπείς πληροφορίες.' } });
   } else {
     try {
       const result = await User.login(
@@ -68,44 +64,28 @@ async function login (req, res, next) {
         req.body.data.password
       );
       if (result.success) {
-        users.addUser(result.data._security._id, result.data._security._token);
-        res.status(200).json({ result: result });
+        res.status(200).json({
+          result: {
+            success: true,
+            data: { user: result.data.user, sessionId: result.data.sessionId }
+          }
+        });
       } else {
         res.status(401).json({ result: result });
       }
     } catch (e) {
-      console.log(e);
       res
         .status(500)
-        .json({ result: { success: false, data: 'Unexpected error.' } });
+        .json({ result: { success: false, data: 'Αναπάντεχο σφάλμα.' } });
     }
   }
 }
 
 async function logout (req, res, next) {
   try {
-    if (
-      req.body &&
-      req.body.data &&
-      req.body.data._security &&
-      req.body.data._security._token &&
-      req.body.data._security._id
-    ) {
-      if (
-        users.isLogged(
-          req.body.data._security._id,
-          req.body.data._security._token
-        )
-      ) {
-        users.removeUser(req.body.data._id);
-        res.status(200).json({ success: true, data: null });
-      } else {
-        res.status(401).json({ success: false, data: 'Άρνηση πρόσβασης.' });
-      }
-    } else {
-      res
-        .status(400)
-        .json({ result: { success: false, data: 'Ελλιπείς πληροφορίες.' } });
+    if (req.body && req.body.sessionId) {
+      await User.logout(req.body.sessionId);
+      res.json({ success: true, data: null });
     }
   } catch (e) {
     res.status(500).json({ success: false, data: 'Αναπάντεχο σφάλμα.' });

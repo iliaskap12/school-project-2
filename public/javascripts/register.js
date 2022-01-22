@@ -38,10 +38,13 @@ function formatData (element) {
   };
 }
 
-function onSuccess (response, userData) {
-  window.sessionStorage.setItem('_id', response.security._id);
-  window.sessionStorage.setItem('_token', response.security._token);
-  window.sessionStorage.setItem('username', `${userData.account.username}`);
+function onSuccess (response) {
+  window.sessionStorage.setItem('sessionId', response.sessionId);
+  window.sessionStorage.setItem('_id', response.user._id);
+  window.sessionStorage.setItem(
+    'username',
+    `${response.user.account.username}`
+  );
   window.location.href = '/thanks';
 }
 
@@ -84,7 +87,7 @@ async function register (userData) {
     });
     const json = await response.json();
     if (!json.error) {
-      onSuccess(json, userData);
+      onSuccess(json.data);
     } else {
       onError(json, userData);
     }

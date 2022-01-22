@@ -1,46 +1,28 @@
 import Form from '/form';
 
 window.addEventListener('DOMContentLoaded', async () => {
-  const login = document.getElementById('login-container');
-  const logout = document.getElementById('logout');
-  logout.addEventListener('click', async () => {
-    const result = await fetch('/logout', {
-      method: 'post',
-      body: JSON.stringify({
-        data: {
-          _security: {
-            _id: window.sessionStorage.getItem('_id'),
-            _token: window.sessionStorage.getItem('_token')
-          },
-          _id: window.sessionStorage.getItem('_id')
-        }
-      }),
-      headers: { 'Content-Type': 'application/json' }
-    });
-
-    const json = await result.json();
-    if (json.success) {
-      window.sessionStorage.clear();
-      window.location.href = '/profile';
-    } else {
-      onError(result, result.data);
-    }
-  });
-
+  document.getElementById('logout').addEventListener('click', logout);
   document.getElementById('goback').addEventListener('click', () => {
     window.location.href = '/';
   });
-  if (window.sessionStorage.getItem('_id')) {
+
+  await loadProfile();
+});
+
+async function loadProfile () {
+  if (
+    window.sessionStorage.getItem('_id') &&
+    window.sessionStorage.getItem('sessionId')
+  ) {
     try {
       const result = await getProfile({
-        _id: window.sessionStorage.getItem('_id'),
-        _security: {
-          _id: window.sessionStorage.getItem('_id'),
-          _token: window.sessionStorage.getItem('_token')
-        }
+        user: {
+          _id: window.sessionStorage.getItem('_id')
+        },
+        sessionId: window.sessionStorage.getItem('sessionId')
       });
       if (result.result.success) {
-        login.remove();
+        document.getElementById('login-container').remove();
         return;
       } else {
         window.sessionStorage.clear();
@@ -49,17 +31,36 @@ window.addEventListener('DOMContentLoaded', async () => {
       console.error(e);
     }
   }
-  logout.style.display = 'none';
+  document.getElementById('logout').style.display = 'none';
   const form = new Form('login-form', onSubmit);
-});
+}
+
+async function logout () {
+  if (!window.sessionStorage.getItem('sessionId')) {
+    window.sessionStorage.clear();
+    window.location.href = '/profile';
+    return;
+  }
+  const result = await fetch('/logout', {
+    method: 'post',
+    body: JSON.stringify({
+      sessionId: window.sessionStorage.getItem('sessionId')
+    }),
+    headers: { 'Content-Type': 'application/json' }
+  });
+
+  await result.json();
+  window.sessionStorage.clear();
+  window.location.href = '/profile';
+}
 
 function formatData (element) {
   return Object.fromEntries(new FormData(element).entries());
 }
 
-function onLoginSuccess (response, userData) {
-  window.sessionStorage.setItem('_id', userData._security._id);
-  window.sessionStorage.setItem('_token', userData._security._token);
+function onLoginSuccess (response) {
+  window.sessionStorage.setItem('sessionId', response.sessionId);
+  window.sessionStorage.setItem('_id', response.user._id);
   document.getElementById('login-container').remove();
 }
 
@@ -93,7 +94,7 @@ async function login (userData) {
     });
     const json = await response.json();
     if (json.result.success) {
-      onLoginSuccess(json, json.result.data);
+      onLoginSuccess(json.result.data);
     } else {
       onError(json, json.result.data);
     }
@@ -112,7 +113,7 @@ async function getProfile (userData) {
     });
     const json = await response.json();
     if (json.result.success) {
-      renderProfile(json.result.data.data).catch(e => console.error(e));
+      renderProfile(json.result.data).catch(e => console.error(e));
       document.getElementById('logout').style.display = 'block';
     } else {
       onError(json, json.result.data);

@@ -5,10 +5,10 @@ const root = require(path.join('..', 'util', 'path'));
 const UserDAO = require(path.join(root, 'middleware', 'UserDAO'));
 
 class User {
+  #_id;
   #_address;
   #_info;
   #_account;
-  #_security;
 
   constructor (userData) {
     this.#_address = userData.address;
@@ -22,26 +22,30 @@ class User {
   }
 
   async save () {
-    return await UserDAO.save(this);
+    return await UserDAO.saveUser(this);
   }
 
-  set _security (security) {
-    this.#_security = security;
+  async update () {
+    await UserDAO.update(this);
   }
 
-  get _security () {
-    return this.#_security;
+  set _id (id) {
+    this.#_id = id;
   }
 
-  get _address () {
+  get _id () {
+    return this.#_id;
+  }
+
+  get address () {
     return this.#_address;
   }
 
-  get _info () {
+  get info () {
     return this.#_info;
   }
 
-  get _account () {
+  get account () {
     return this.#_account;
   }
 
@@ -49,56 +53,58 @@ class User {
     return await UserDAO.search(data, quantity);
   }
 
-  static generateToken (id) {
-    return bcrypt.hashSync(`${id}`, bcrypt.genSaltSync(10));
+  static async login (username, password, id) {
+    return await UserDAO.login(username, password, id);
   }
 
-  static async login (username, password) {
-    const result = await User.search({ 'account.username': username }, false);
-    let returnVal = {
-      success: false,
-      data: 'Το username ή το συνθηματικό είναι λάθος.'
-    };
-    if (
-      result.found &&
-      bcrypt.compareSync(password, result.data.account.password)
-    ) {
-      result.data._security = { _id: null, _token: null };
-      result.data._security._token = User.generateToken(
-        result.data._id.toString()
-      );
-      result.data._security._id = result.data._id.toString();
-      returnVal = { success: true, data: result.data };
-    }
-    return returnVal;
+  static async logout (sessionId) {
+    return await UserDAO.logout(sessionId);
+  }
+
+  static async isLoggedIn (sessionId) {
+    return await UserDAO.isLoggedIn(sessionId);
+  }
+
+  async exists () {
+    return await UserDAO.exists(this);
   }
 
   static async createUser (userData) {
+    const plainTextPassword = userData.account.password;
     try {
       const user = new User(userData);
-      const result = await User.search(
-        {
-          $or: [
-            { 'info.email': userData.info.email },
-            {
-              'account.username': userData.account.username
-            }
-          ]
-        },
-        {
-          many: false
-        }
-      );
+      const result = await user.exists();
       if (result.found) {
         return { success: false, data: result.data };
       }
-      const id = await user.save();
-      const token = User.generateToken(id.toString());
-      user._security = { _id: id.toString(), _token: token };
-      return { success: true, data: user };
+      user._id = await user.save();
+      const data = await User.login(
+        user.account.username,
+        plainTextPassword,
+        user._id
+      );
+      if (!data.success) {
+        return data;
+      }
+      return {
+        success: true,
+        data: { user: user, sessionId: data.data.sessionId }
+      };
     } catch (err) {
       console.error(err);
     }
+    return { success: false, data: 'Αναπάντεχο σφάλμα' };
+  }
+
+  toJSON () {
+    let self = {};
+    if (this.#_id) {
+      self._id = this.#_id;
+    }
+    self.account = this.#_account;
+    self.info = this.#_info;
+    self.address = this.#_address;
+    return self;
   }
 }
 
