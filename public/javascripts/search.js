@@ -1,4 +1,4 @@
-import { getCategoryTitle, handleError } from '/categories';
+import { getCategoryTitle, handleError, onCategoryClick } from '/categories';
 
 async function getCourses () {
   const courses = {
@@ -63,6 +63,11 @@ async function render (courses) {
   results.appendChild(
     parser.parseFromString(template(templateData), 'text/html').body
       .firstElementChild
+  );
+  Array.from(document.getElementsByClassName('category')).forEach(
+    categoryEl => {
+      categoryEl.addEventListener('click', onCategoryClick);
+    }
   );
 }
 

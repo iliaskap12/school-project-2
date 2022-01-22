@@ -2,6 +2,10 @@
     margin-top: 5%;
 }
 
+.categories .title {
+    margin-left: 5%;
+}
+
 .category-list {
     display: flex;
     flex-direction: column;

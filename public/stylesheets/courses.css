@@ -49,3 +49,8 @@ summary {
 :not(details[open]) summary:hover {
     cursor: pointer;
 }
+
+.course .category {
+    font-size: 1.2em;
+    text-align: center;
+}

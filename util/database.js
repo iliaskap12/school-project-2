@@ -19,7 +19,7 @@ const mongoConnect = callback => {
       callback();
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
       throw err;
     });
 };

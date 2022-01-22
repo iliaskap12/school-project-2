@@ -22,7 +22,6 @@ async function getProfile (req, res, next) {
         { _id: new ObjectId(req.body.data.user._id) },
         { many: false }
       );
-      console.log(result.data);
       if (await User.isLoggedIn(req.body.data.sessionId)) {
         res.status(200).json({
           result: {

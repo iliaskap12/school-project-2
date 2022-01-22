@@ -92,4 +92,4 @@ function handleError (obj) {
   return false;
 }
 
-export { getCategoryTitle, handleError };
+export { getCategoryTitle, handleError, onCategoryClick };

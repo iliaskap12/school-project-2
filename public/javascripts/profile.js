@@ -62,6 +62,18 @@ function onLoginSuccess (response) {
   window.sessionStorage.setItem('sessionId', response.sessionId);
   window.sessionStorage.setItem('_id', response.user._id);
   document.getElementById('login-container').remove();
+  const previous = window.sessionStorage.getItem('timeoutId');
+  if (previous) {
+    window.clearTimeout(parseInt(previous));
+    window.sessionStorage.removeItem('timeoutId');
+  }
+  const timeoutId = window.setTimeout(() => {
+    window.sessionStorage.clear();
+    if (window.location.href === '/profile') {
+      window.location.reload();
+    }
+  }, 1000 * 3600);
+  window.sessionStorage.setItem('timeoutId', `${timeoutId}`);
 }
 
 function onError (response, userData) {
